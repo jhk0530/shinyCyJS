@@ -1,0 +1,9 @@
+Package: shinyCyJS
+Title: Shiny application for Cytoscape.js
+Version: 0.0.0.1
+Authors@R: person("Jinhwan", "Kim", email = "kjh0530@unist.ac.kr", role = c("aut", "cre"))
+Description: link between shiny and cytoscape.js.
+Depends: R (>= 3.5.2)
+License: MIT + file License
+Encoding: UTF-8
+LazyData: true
