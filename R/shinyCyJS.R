@@ -19,7 +19,8 @@ shinyCyJS = function(elements = list(), options = list(),layout = list(name='cos
 
 #' @export
 #'
-#' touchTapThreshold, desktopTapthreshold not available
+
+# touchTapThreshold, desktopTapthreshold not available
 buildIOptions = function(...){
   options = as.list(match.call())[-1] # remove function name
   options = options[
@@ -52,32 +53,32 @@ renderShinyCyJS = function(expr, env = parent.frame(), quoted = FALSE){
 }
 
 #' @export
-buildNode = function(...){
-  options = as.list(match.call())[-1] # remove function name
-  l$group = 'nodes'
-  no = names(options)
-  if(!'id' %in% no){ print("id must be exist, return")}
-  if(!'width' %in% no){ options$width = 30 }
-  if(!'height' %in% no){ options$height = 30 }
-  if(!'shape' %in% no){ options$shape = 'ellipse' }
-  if(!'bgColor' %in% no){ options$bgColor = '#48dbfb' } # megaman
-  if(!'bgOpacity' %in% no){ options$bgOpacity = 1 }
-  if(!'borderWidth' %in% no){ options$borderWidth = 0}
-  if(!'borderStyle' %in% no){ options$borderStyle = 'solid'}
-  if(!'borderColor' %in% no){ options$borderColor = '#8395a7'} # storm petrel
-  if(!'borderOpacity' %in% no){ options$borderOpacity = 1}
-  options$label = options$id
-  if(!'labelColor' %in% no){ options$labelColor = '#8395a7'}
-  if(!'textOpacity' %in% no){ options$textOpacity = 1}
-  if(!'fontSize' %in% no){ options$fontSize = 16}
-  if(!'textOutlineColor' %in% no){ options$textOutlineColor = '#222f3e'} # impreial primer
-  if(!'textOutlineOpacity' %in% no){ options$textOutlineOpacity = 1}
-  if(!'textOutlineWidth' %in% no){ options$textOutlineWidth = 0}
-  if(!'textbgColor' %in% no){ options$textbgColor = '#FFF'}
-  if(!'textbgOpacity' %in% no){ options$textbgOpacity = 0 }
-  if(!'textBorderColor' %in% no){ options$textBorderColor = '#222f3e'} # impreial primer
-  if(!'textBorderOpacity' %in% no){ options$textBorderOpacity = 0}
-  if(!'textBorderWidth' %in% no){ options$textBorderWidth = 0}
+buildNode = function(
+  id, width = 15, height = 15, shape = 'ellipse', bgColor = '#48DBFB',
+  bgOpacity = 1, bgFill = 'solid', borderWidth = 0, borderStyle = 'solid',
+  borderColor = '#8395a7',borderOpacity = 1, isParent = FALSE, labelColor = '#8395a7',
+  textOpacity = 1,fontSize = 16, textOutlineColor = '#222f3e', textOutlineOpacity = 1,
+  textOutlineWidth = 0,textbgColor = '#FFF', textbgOpacity = 0, textBorderColor = '#222f3e',
+  textBorderOpacity = 0,textBorderWidth = 0, parent = NULL){
+  # megaman SKY #48DBFB
+  # storm petrel #8395A7
+  # impreial primer #222F3E
+
+  l = list(group= 'nodes')
+
+  options = list(
+    width = width, height = height, label = id, id = id, shape = shape,
+    bgColor = bgColor, bgOpacity = bgOpacity, bgFill = bgFill,
+    borderWidth = borderWidth, borderStyle = borderStyle, borderColor = borderColor,
+    borderOpacity = borderOpacity, labelColor = labelColor, textOpacity = textOpacity,
+    fontSize = fontSize, textOutlineColor = textOutlineColor, textOutlineOpacity = textOutlineOpacity,
+    textOutlineWidth = textOutlineWidth, textbgColor = textbgColor, textbgOpacity = textbgOpacity,
+    textBorderColor = textBorderColor, textBorderOpacity = textBorderOpacity, textBorderWidth = textBorderWidth, parent = parent)
+
+  if(isParent){ # parent node
+    options$bgColor = '#c8d6e5' # light blue ballerina
+    options$bgOpacity = '0.5'
+  }
 
   l$data = options
 
@@ -85,23 +86,19 @@ buildNode = function(...){
 }
 
 #' @export
-buildEdge = function(...){
-  options = as.list(match.call())[-1] # remove function name
+buildEdge = function(source, target, width = 3, curveStyle = 'haystack',
+                     lineColor = '#FECA57', lineStyle = 'solid', sourceArrowColor = '#feca57',
+                     targetArrowColor = '#feca57', sourceArrowShape = 'none', targetArrowShape = 'none'){
+  # casandora YELLOW #FECA57
+  l = list()
   l$group = 'edges'
-  no = names(options)
-
-  if(!'width' %in% no){ options$width = 3 }
-  if(!'curveStyle' %in% no){ options$curveStyle = 'haystack' }
-  if(!'lineColor' %in% no){ options$lineColor = '#feca57' }  # casandora yellow
-  if(!'lineStyle' %in% no){ options$lineStyle = 'solid'}
-  if(!'sourceArrowColor' %in% no){ options$sourceArrowColor = '#feca57'}
-  if(!'targetArrowColor' %in% no){ options$targetArrowColor = '#feca57'}
-  if(!'sourceArrowShape' %in% no){ options$sourceArrowShape = 'none'}
-  if(!'targetArrowShape' %in% no){ options$targetArrowShape = 'none'}
+  options = list(source = source, target = target, width = width,
+                 curveStyle=curveStyle, lineColor = lineColor, lineStyle = lineStyle,
+                 sourceArrowColor = sourceArrowColor, targetArrowColor = targetArrowColor,
+                 sourceArrowShape = sourceArrowShape, targetArrowShape = targetArrowShape)
   l$data = options
   l
 }
-
 
 #' @export
 viewElement = function(elements){
