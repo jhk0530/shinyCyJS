@@ -1,14 +1,12 @@
-var myCytoscape;
-
 HTMLWidgets.widget({
   name:'shinyCyJS',
   type:'output',
   factory : function(el, width, height) {
 
 	// Initialisation
-	var cy = cytoscape({ 
+	var cy = window.cy = cytoscape({ 
 	container : document.getElementById(el.id),
-
+	layout: { name: 'klay' },
 	style: cytoscape.stylesheet()
 		.selector('node').css({
 			'width': 'data(width)',
@@ -44,17 +42,16 @@ HTMLWidgets.widget({
 			'target-arrow-color': 'data(targetArrowColor)',
 			'target-arrow-shape': 'data(targetArrowShape)',
 		})	
-	});
-	myCytoscape = cy;
-
+	});	
+	
     return {
       renderValue: function(input){
 
 		// Options
 		var Ioptions = input.options.Ioptions
-		for( var key in Ioptions ){ myCytoscape[[key]](Ioptions[key]) }
+		for( var key in Ioptions ){ cy[[key]](Ioptions[key]) }
 		var Roptions = input.options.Roptions
-		for(var key in Roptions){ myCytoscape.renderer()[[key]] = Roptions[key] }
+		for(var key in Roptions){ cy.renderer()[[key]] = Roptions[key] }
 
 		// add elements
 		var Elements = input.elements;
@@ -62,10 +59,18 @@ HTMLWidgets.widget({
 		
 		// set Layout
 		var Layout = input.layout
-		myCytoscape.layout(Layout).run()
+		cy.layout(Layout).run()
 
 	  },
       resize : function(width, height) { }  // not yet
     };
   }
 });
+/*
+import cytoscape from 'cytoscape';
+import cola from 'cytoscape-cola';	
+import klay from 'cytoscape-klay';
+
+cytoscape.use(cola);	
+cytoscape.use(klay);
+*/
