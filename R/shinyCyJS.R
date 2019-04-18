@@ -1,6 +1,6 @@
 #' @import htmlwidgets
-#' @export
 
+#' @export
 shinyCyJS = function(elements = list(), options = list(),layout = list(name='cose'),
                      width = NULL, height = NULL, elementId = NULL){
 
@@ -18,10 +18,8 @@ shinyCyJS = function(elements = list(), options = list(),layout = list(name='cos
 }
 
 #' @export
-#'
-
-# touchTapThreshold, desktopTapthreshold not available
 buildIOptions = function(...){
+  # touchTapThreshold, desktopTapthreshold not available
   options = as.list(match.call())[-1] # remove function name
   options = options[
     c('minZoom','maxZoom','zoomingEnabled',
