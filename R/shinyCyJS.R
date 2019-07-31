@@ -57,7 +57,7 @@ buildNode = function(
   borderColor = '#8395a7',borderOpacity = 1, isParent = FALSE, labelColor = '#8395a7',
   textOpacity = 1,fontSize = 16, textOutlineColor = '#222f3e', textOutlineOpacity = 1,
   textOutlineWidth = 0,textbgColor = '#FFF', textbgOpacity = 0, textBorderColor = '#222f3e',
-  textBorderOpacity = 0,textBorderWidth = 0, parent = NULL){
+  textBorderOpacity = 0,textBorderWidth = 0, parent = NULL, opacity = 1){
   # megaman SKY #48DBFB
   # storm petrel #8395A7
   # impreial primer #222F3E
@@ -71,7 +71,8 @@ buildNode = function(
     borderOpacity = borderOpacity, labelColor = labelColor, textOpacity = textOpacity,
     fontSize = fontSize, textOutlineColor = textOutlineColor, textOutlineOpacity = textOutlineOpacity,
     textOutlineWidth = textOutlineWidth, textbgColor = textbgColor, textbgOpacity = textbgOpacity,
-    textBorderColor = textBorderColor, textBorderOpacity = textBorderOpacity, textBorderWidth = textBorderWidth, parent = parent)
+    textBorderColor = textBorderColor, textBorderOpacity = textBorderOpacity, textBorderWidth = textBorderWidth, parent = parent,
+    opacity = opacity)
 
   if(isParent){ # parent node
     options$bgColor = '#c8d6e5' # light blue ballerina
@@ -86,14 +87,16 @@ buildNode = function(
 #' @export
 buildEdge = function(source, target, width = 3, curveStyle = 'haystack',
                      lineColor = '#FECA57', lineStyle = 'solid', sourceArrowColor = '#feca57',
-                     targetArrowColor = '#feca57', sourceArrowShape = 'none', targetArrowShape = 'none'){
+                     targetArrowColor = '#feca57', sourceArrowShape = 'none', targetArrowShape = 'none',
+                     opacity = 1){
   # casandora YELLOW #FECA57
   l = list()
   l$group = 'edges'
   options = list(source = source, target = target, width = width,
                  curveStyle=curveStyle, lineColor = lineColor, lineStyle = lineStyle,
                  sourceArrowColor = sourceArrowColor, targetArrowColor = targetArrowColor,
-                 sourceArrowShape = sourceArrowShape, targetArrowShape = targetArrowShape)
+                 sourceArrowShape = sourceArrowShape, targetArrowShape = targetArrowShape,
+                 opacity = opacity)
   l$data = options
   l
 }

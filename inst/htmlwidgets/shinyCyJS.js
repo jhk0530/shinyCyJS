@@ -31,6 +31,8 @@ HTMLWidgets.widget({
 			'text-border-opacity': 'data(textBorderOpacity)',
 			'text-border-width': 'data(textBorderWidth)',
 			'text-border-color': 'data(textBorderColor)',
+			'text-valign':'center',
+			'opacity':'data(opacity)'
 		})
 		.selector('edge').css({
 			'width': 'data(width)',
@@ -41,9 +43,10 @@ HTMLWidgets.widget({
 			'source-arrow-shape': 'data(sourceArrowShape)',
 			'target-arrow-color': 'data(targetArrowColor)',
 			'target-arrow-shape': 'data(targetArrowShape)',
+			'opacity':'data(opacity)'
 		})	
 	});	
-	
+		
     return {
       renderValue: function(input){
 
@@ -66,11 +69,4 @@ HTMLWidgets.widget({
     };
   }
 });
-/*
-import cytoscape from 'cytoscape';
-import cola from 'cytoscape-cola';	
-import klay from 'cytoscape-klay';
 
-cytoscape.use(cola);	
-cytoscape.use(klay);
-*/
