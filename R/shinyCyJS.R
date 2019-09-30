@@ -57,7 +57,7 @@ buildNode = function(
   borderColor = '#8395a7',borderOpacity = 1, isParent = FALSE, labelColor = '#8395a7',
   textOpacity = 1,fontSize = 16, textOutlineColor = '#222f3e', textOutlineOpacity = 1,
   textOutlineWidth = 0,textbgColor = '#FFF', textbgOpacity = 0, textBorderColor = '#222f3e',
-  textBorderOpacity = 0,textBorderWidth = 0, parent = NULL, opacity = 1){
+  textBorderOpacity = 0,textBorderWidth = 0, parent = NULL, opacity = 1, pieSize = rep('0%',16), pieColor = rep('#000',16)){
   # megaman SKY #48DBFB
   # storm petrel #8395A7
   # impreial primer #222F3E
@@ -70,9 +70,17 @@ buildNode = function(
     borderWidth = borderWidth, borderStyle = borderStyle, borderColor = borderColor,
     borderOpacity = borderOpacity, labelColor = labelColor, textOpacity = textOpacity,
     fontSize = fontSize, textOutlineColor = textOutlineColor, textOutlineOpacity = textOutlineOpacity,
-    textOutlineWidth = textOutlineWidth, textbgColor = textbgColor, textbgOpacity = textbgOpacity,
+    textOutlineWidth = textOutlineWidth, textbgColor = textbgColor, textbgOpacity = textbgOpacity, opacity = opacity,
     textBorderColor = textBorderColor, textBorderOpacity = textBorderOpacity, textBorderWidth = textBorderWidth, parent = parent,
-    opacity = opacity)
+    pieSize1 = pieSize[1], pieSize2 = pieSize[2], pieSize3 = pieSize[3], pieSize4 = pieSize[4],
+    pieSize5 = pieSize[5], pieSize6 = pieSize[6], pieSize7 = pieSize[7], pieSize8 = pieSize[8],
+    pieSize9 = pieSize[9], pieSize10 = pieSize[10], pieSize11 = pieSize[11], pieSize12 = pieSize[12],
+    pieSize13 = pieSize[13], pieSize14 = pieSize[14], pieSize15 = pieSize[15], pieSize16 = pieSize[16],
+    pieColor1 = pieColor[1], pieColor2 = pieColor[2], pieColor3 = pieColor[3], pieColor4 = pieColor[4],
+    pieColor5 = pieColor[5], pieColor6 = pieColor[6], pieColor7 = pieColor[7], pieColor8 = pieColor[8],
+    pieColor9 = pieColor[9], pieColor10 = pieColor[10], pieColor11 = pieColor[11], pieColor12 = pieColor[12],
+    pieColor13 = pieColor[13], pieColor14 = pieColor[14], pieColor15 = pieColor[15], pieColor16 = pieColor[16]
+    )
 
   if(isParent){ # parent node
     options$bgColor = '#c8d6e5' # light blue ballerina
