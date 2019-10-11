@@ -4,7 +4,7 @@ HTMLWidgets.widget({
   factory : function(el, width, height) {
 
 	// Initialisation
-	var cy = window.cy = cytoscape({ 
+	var cy = window.cy = new cytoscape({
 	container : document.getElementById(el.id),
 	layout: { name: 'klay' },
 	style: cytoscape.stylesheet()
@@ -12,7 +12,7 @@ HTMLWidgets.widget({
 			'width': 'data(width)',
 			'height': 'data(height)',
 			'shape': 'data(shape)',
-			'background-color': 'data(bgColor)',				
+			'background-color': 'data(bgColor)',
 			'background-opacity': 'data(bgOpacity)',
 			'background-fill': 'data(bgFill)',
 			'border-width': 'data(borderWidth)',
@@ -22,7 +22,7 @@ HTMLWidgets.widget({
 			'label': 'data(label)',
 			'color': 'data(labelColor)',
 			'text-opacity': 'data(textOpacity)',
-			'font-size': 'data(fontSize)',				
+			'font-size': 'data(fontSize)',
 			'text-outline-color': 'data(textOutlineColor)',
 			'text-outline-opacity': 'data(textOutlineOpacity)',
 			'text-outline-width': 'data(textOutlineWidth)',
@@ -65,7 +65,7 @@ HTMLWidgets.widget({
 			'pie-14-background-size' : 'data(pieSize14)',
 			'pie-15-background-size' : 'data(pieSize15)',
 			'pie-16-background-size' : 'data(pieSize16)'
-			
+
 		})
 		.selector('edge').css({
 			'width': 'data(width)',
@@ -77,9 +77,9 @@ HTMLWidgets.widget({
 			'target-arrow-color': 'data(targetArrowColor)',
 			'target-arrow-shape': 'data(targetArrowShape)',
 			'opacity':'data(opacity)'
-		})	
-	});	
-		
+		})
+	});
+
     return {
       renderValue: function(input){
 
@@ -92,7 +92,7 @@ HTMLWidgets.widget({
 		// add elements
 		var Elements = input.elements;
 		cy.add(Elements);
-		
+
 		// set Layout
 		var Layout = input.layout
 		cy.layout(Layout).run()
