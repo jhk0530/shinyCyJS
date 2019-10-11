@@ -91,6 +91,7 @@ HTMLWidgets.widget({
 
 		// add elements
 		var Elements = input.elements;
+		cy.$().remove();
 		cy.add(Elements);
 
 		// set Layout
