@@ -35,5 +35,7 @@ pieSize = c(40,40,20,0,0,0,0,0,0,0,0,0,0,0,0,0),
 pieColor = c('cyan','magenta','yellow',rep('#000',13))))
 </code></pre>
 
+0.0.3 -> pre-built elements didn't clear when using rendershinyCyJS. Fixed
+
 # todo 
 build readme ( manual )
