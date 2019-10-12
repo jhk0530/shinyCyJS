@@ -133,8 +133,8 @@ HTMLWidgets.widget({
 				});
 			});
 		},
-		resize : function(el, width, height, instance) {
-			if(instance.cy) { instance.cy.resize(); }
+		resize : function(width, height){
+			// not completely understand yet.
 		}
 	}
 
