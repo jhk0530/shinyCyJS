@@ -18,12 +18,14 @@ shinyCyJS(elem)
 
 <img src = 'https://user-images.githubusercontent.com/6457691/65883784-aefd8b80-e3d2-11e9-96cf-4dd390ad3141.png' width = 150></img>
 
-
-
 # Used in 
-
 netGO <https://github.com/unistbig/netGO> <br>
-Dawn <https://github.com/jhk0530/Dawn>
+Dawn <https://github.com/jhk0530/Dawn> <br>
+GScluster <https://github.com/unistbig/GScluster> ( on progress ) <br>
+
+# suggest or comment
+hwanistic@gmail.com
+Thanks !
 
 # update log 
 0.0.2 -> added pie background feature ( only size and color )<br>
@@ -36,6 +38,17 @@ pieColor = c('cyan','magenta','yellow',rep('#000',13))))
 </code></pre>
 
 0.0.3 -> pre-built elements didn't clear when using rendershinyCyJS. Fixed
+
+0.0.4 -> now available tooltip feature on Nodes <br> 
+for information, <br>
+Qtip2 <https://github.com/qTip2/qTip2> <br> 
+Cytoscape-Qtip <https://github.com/cytoscape/cytoscape.js-qtip> <br> 
+<br>
+<img src = 'https://user-images.githubusercontent.com/6457691/66700551-70e65d00-ed2c-11e9-8b87-22074b228882.png' width = 350></img>
+<br>
+demo code : 
+<pre><code> shinyCyJS(list( buildNode('have tooltip',tooltip = 'Tooltip!'), buildNode('not Tooltip')) )
+</code></pre>
 
 # todo 
 build readme ( manual )
