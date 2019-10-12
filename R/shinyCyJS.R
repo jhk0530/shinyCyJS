@@ -57,7 +57,7 @@ buildNode = function(
   borderColor = '#8395a7',borderOpacity = 1, isParent = FALSE, labelColor = '#8395a7',
   textOpacity = 1,fontSize = 16, textOutlineColor = '#222f3e', textOutlineOpacity = 1,
   textOutlineWidth = 0,textbgColor = '#FFF', textbgOpacity = 0, textBorderColor = '#222f3e',
-  textBorderOpacity = 0,textBorderWidth = 0, parent = NULL, opacity = 1, pieSize = rep('0%',16), pieColor = rep('#000',16)){
+  textBorderOpacity = 0,textBorderWidth = 0, parent = NULL, opacity = 1, pieSize = rep('0%',16), pieColor = rep('#000',16), tooltip = ''){
   # megaman SKY #48DBFB
   # storm petrel #8395A7
   # impreial primer #222F3E
@@ -79,7 +79,8 @@ buildNode = function(
     pieColor1 = pieColor[1], pieColor2 = pieColor[2], pieColor3 = pieColor[3], pieColor4 = pieColor[4],
     pieColor5 = pieColor[5], pieColor6 = pieColor[6], pieColor7 = pieColor[7], pieColor8 = pieColor[8],
     pieColor9 = pieColor[9], pieColor10 = pieColor[10], pieColor11 = pieColor[11], pieColor12 = pieColor[12],
-    pieColor13 = pieColor[13], pieColor14 = pieColor[14], pieColor15 = pieColor[15], pieColor16 = pieColor[16]
+    pieColor13 = pieColor[13], pieColor14 = pieColor[14], pieColor15 = pieColor[15], pieColor16 = pieColor[16],
+    tooltip = tooltip
     )
 
   if(isParent){ # parent node

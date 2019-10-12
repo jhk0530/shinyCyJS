@@ -6,7 +6,9 @@ HTMLWidgets.widget({
 	// Initialisation
 	var cy = window.cy = new cytoscape({
 	container : document.getElementById(el.id),
+
 	layout: { name: 'klay' },
+
 	style: cytoscape.stylesheet()
 		.selector('node').css({
 			'width': 'data(width)',
@@ -64,7 +66,8 @@ HTMLWidgets.widget({
 			'pie-13-background-size' : 'data(pieSize13)',
 			'pie-14-background-size' : 'data(pieSize14)',
 			'pie-15-background-size' : 'data(pieSize15)',
-			'pie-16-background-size' : 'data(pieSize16)'
+			'pie-16-background-size' : 'data(pieSize16)',
+			'tooltip' : 'data(tooltip)'
 
 		})
 		.selector('edge').css({
@@ -81,26 +84,60 @@ HTMLWidgets.widget({
 	});
 
     return {
-      renderValue: function(input){
+		renderValue: function(input){
+			// Options
+			var Ioptions = input.options.Ioptions
+			for( var key in Ioptions ){ cy[[key]](Ioptions[key]) }
+			var Roptions = input.options.Roptions
+			for(var key in Roptions){ cy.renderer()[[key]] = Roptions[key] }
 
-		// Options
-		var Ioptions = input.options.Ioptions
-		for( var key in Ioptions ){ cy[[key]](Ioptions[key]) }
-		var Roptions = input.options.Roptions
-		for(var key in Roptions){ cy.renderer()[[key]] = Roptions[key] }
+			// add elements
+			var Elements = input.elements;
+			cy.$().remove();
+			cy.add(Elements);
 
-		// add elements
-		var Elements = input.elements;
-		cy.$().remove();
-		cy.add(Elements);
+			// set Layout
+			var Layout = input.layout
+			cy.layout(Layout).run()
+			
+			// set Qtip
+			cy.ready(function(){
+				cy.on('mouseover', 'node', function (event) {
+					var node = this;
+					$(".qtip").remove();
+					var tooltip = node.data("tooltip");
+					if (tooltip != ''){
+						cy.getElementById(node.id()).qtip({
+						content: { text: tooltip },
+						show: { ready: true },
+						position: {
+							my: 'top center',
+							at: 'bottom center',
+							adjust: { cyViewport: true },
+							effect: false
+						},
+						hide: {
+							event: 'unfocus',
+							inactive: 2000
+						},
+						style: {
+							classes: 'qtip-bootstrap',
+							tip: {
+							  width: 16,
+							  height: 8
+							}
+						}
+					})
+					}
+					
+				});
+			});
+		},
+		resize : function(el, width, height, instance) {
+			if(instance.cy) { instance.cy.resize(); }
+		}
+	}
 
-		// set Layout
-		var Layout = input.layout
-		cy.layout(Layout).run()
-
-	  },
-      resize : function(width, height) { }  // not yet
-    };
   }
 });
 
