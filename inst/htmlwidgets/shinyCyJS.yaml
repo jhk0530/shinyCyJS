@@ -33,3 +33,26 @@ dependencies:
    version: 2.7.1
    src: htmlwidgets/lib/cytoscape-qtip
    script: cytoscape-qtip.js
+
+ - name: cytoscape-fcose
+   version: 1.1.0
+   src: htmlwidgets/lib/cytoscape-fcose
+   script : 
+    - numeric-1.2.6.js
+    - layout-base.js
+    - cose-base.js
+    - cytoscape-fcose.js
+
+ - name: cytoscape-spread
+   version: 3.0.0
+   src: htmlwidgets/lib/cytoscape-spread
+   script : 
+    - weaver.min.js
+    - cytoscape-spread.js
+
+ - name: cytoscape-dagre
+   version: 2.2.2
+   src : htmlwidgets/lib/cytoscape-dagre
+   script : 
+    - dagre.min.js
+    - cytoscape-dagre.js
