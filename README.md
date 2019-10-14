@@ -59,7 +59,10 @@ Edge : ![#000000](https://placehold.it/15/000000/000000?text=+)
 <img src = 'https://user-images.githubusercontent.com/6457691/66729509-dbabab80-ee86-11e9-8800-0a945a92584b.png' width = 150></img>
 <br>
 
-
+0.0.6 -> fcose, spread, dagre layout available.
+fcose <https://github.com/iVis-at-Bilkent/cytoscape.js-fcose> <br>
+spread <https://github.com/cytoscape/cytoscape.js-spread> <br>
+dagre <https://github.com/cytoscape/cytoscape.js-dagre> <br>
 
 # todo 
 build readme ( manual )
