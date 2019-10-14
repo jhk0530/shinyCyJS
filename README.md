@@ -50,5 +50,16 @@ demo code :
 <pre><code> shinyCyJS(list( buildNode('have tooltip',tooltip = 'Tooltip!'), buildNode('not Tooltip')) )
 </code></pre>
 
+0.0.5 -> now selected item will have different color, 
+Node : ![#ff00ff](https://placehold.it/15/ff00ff/000000?text=+), 
+Edge : ![#000000](https://placehold.it/15/000000/000000?text=+)
+<br>
+<img src = 'https://user-images.githubusercontent.com/6457691/66729507-dbabab80-ee86-11e9-9544-ef9495aac21d.png' width = 150></img>
+<img src = 'https://user-images.githubusercontent.com/6457691/66729506-db131500-ee86-11e9-8159-e89b0c6bb40c.png' width = 150></img>
+<img src = 'https://user-images.githubusercontent.com/6457691/66729509-dbabab80-ee86-11e9-8800-0a945a92584b.png' width = 150></img>
+<br>
+
+
+
 # todo 
 build readme ( manual )
