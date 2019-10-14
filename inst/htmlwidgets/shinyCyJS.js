@@ -81,6 +81,10 @@ HTMLWidgets.widget({
 			'target-arrow-shape': 'data(targetArrowShape)',
 			'opacity':'data(opacity)'
 		})
+		.selector(':selected').css({
+			'background-color': '#FF00FF',
+			'line-color': 'black'
+		})
 	});
 
     return {
