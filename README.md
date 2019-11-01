@@ -2,23 +2,56 @@
 
 R package to link shiny and Cytoscape.js
 
-# install : 
+# Install : 
+
 ```r
 library(devtools)
 install_github('unistbig/shinyCyJS')
 library(shinyCyJS)
 ```
 
-# example code : 
-```r
-elem = list()
-elem[[1]] = buildNode('Node1')
-elem[[2]] = buildNode('Node2')
-elem[[3]] = buildEdge('Node1','Node2')
-shinyCyJS(elem)
-```
+# Example : 
 
-<img src = 'https://user-images.githubusercontent.com/6457691/65883784-aefd8b80-e3d2-11e9-96cf-4dd390ad3141.png' width = 150></img>
+bulid Graph with node 4 = A, B, C, D and edge = A-B, B-C, C-D, B-D <br>
+
+<details><summary>Code</summary>
+
+```r
+library(shiny)
+library(shinyCyJS)
+
+ui = function(){
+  fluidPage(
+    ShinyCyJSOutput(outputId = 'cy')
+  )
+}
+
+server = function(input, output, session){  
+  
+  nodes = data.frame(
+    id = c('A','B','C','D'),
+    width = c(10,20,30,40),
+    height = c(10,20,30,40)
+  )  
+  
+  edges = data.frame(
+    source = c('A','B','C','D'),
+    target = c('B','C','D','B')
+  )
+  
+  nodes = buildElems(nodes, type = 'Node')
+  edges = buildElems(edges, type = 'Edge')  
+  
+  obj = shinyCyJS(c(nodes, edges))  
+  output$cy = renderShinyCyJS(obj)
+}
+
+shinyApp(ui,server, options = list(launch.browser = TRUE, display.mode ='normal'))
+
+```
+</details>
+
+<img src = 'https://user-images.githubusercontent.com/6457691/68040069-d36dc000-fd10-11e9-9ef5-d021768ac548.gif' width = 400></img>
 
 # Used in 
 netGO <https://github.com/unistbig/netGO> <br>
