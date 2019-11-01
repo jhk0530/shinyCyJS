@@ -141,5 +141,5 @@ shinyCyJS(
 
 
 # todo 
-build readme ( manual )
+build readme ( manual ) <br>
 make funcion documents
