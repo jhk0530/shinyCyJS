@@ -1,8 +1,14 @@
 # shinyCyJS
 
-R package to link shiny and Cytoscape.js
+shinyCyJS is R/Shiny Package to use cytoscape.js in R environment. <br>
 
-# Install : 
+cytoscape.js is a great javascript library for visualize/analysis Graph theory ( network ) <br>
+if you interested, please refer this [Link](https://js.cytoscape.org/, "link") <br>
+
+shinyCyJS is built with cytoscape.js version 3.4.2. (2019/03)
+
+
+# How to install : 
 
 ```r
 library(devtools)
@@ -53,7 +59,14 @@ shinyApp(ui,server, options = list(launch.browser = TRUE, display.mode ='normal'
 
 <img src = 'https://user-images.githubusercontent.com/6457691/68040069-d36dc000-fd10-11e9-9ef5-d021768ac548.gif' width = 400></img>
 
+
+# Styles
+
+--- 
+
+
 # Used in 
+
 netGO <https://github.com/unistbig/netGO> <br>
 GScluster <https://github.com/unistbig/GScluster> ( on progress ) <br>
 
