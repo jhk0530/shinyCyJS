@@ -119,3 +119,20 @@ viewElement = function(elements){
     stringsAsFactors = FALSE
   )
 }
+
+#' @export
+buildElems = function(elems, type){
+  func = paste0('build',type,'(')
+
+  res = list()
+  params = colnames(elems)
+  for(i in 1:nrow(elems)){
+    command = c()
+    for(j in 1:length(params)){ command[j] = paste0(params[j], ' = ', "'",elems[i,j],"'") }
+    command = paste(command, collapse = ', ')
+    command = paste0(func ,command,')' )
+    res[[length(res)+1]] = eval(parse(text = command))
+  }
+  return(res)
+
+}

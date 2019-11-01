@@ -2,6 +2,7 @@
 
 export(ShinyCyJSOutput)
 export(buildEdge)
+export(buildElems)
 export(buildIOptions)
 export(buildNode)
 export(buildROptions)
