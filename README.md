@@ -5,7 +5,7 @@ shinyCyJS is R/Shiny Package to use cytoscape.js in R environment. <br>
 cytoscape.js is a great javascript library for visualize/analysis Graph theory ( network ) <br>
 if you interested, please refer this [Link](https://js.cytoscape.org/, "link") <br>
 
-shinyCyJS is built with cytoscape.js version 3.4.2. (2019/03)
+shinyCyJS is built with cytoscape.js version 3.12.0. (2019/11)
 
 
 # How to install : 
@@ -184,6 +184,23 @@ shinyCyJS(
   </p>
   </details>
   
+ <details><summary>0.0.8</summary>
+  core file ( cytoscape.js ) has updated with recent version.
+  now available with Taxi edge
+  
+  <img src ='https://user-images.githubusercontent.com/6457691/68363329-daac2800-016d-11ea-9545-7ea25882a27d.png'></img>
+  
+  below code used to build this figure
+  
+  ```r
+  shinyCyJS(list(
+  buildNode("A"), 
+  buildNode("B"), 
+  buildNode("C"), 
+  buildEdge("A", "B", curveStyle = "taxi"), 
+  buildEdge("A", "C", curveStyle = "taxi")))
+  ```
+ </details>
 
 
 # todo 
