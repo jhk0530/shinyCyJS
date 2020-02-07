@@ -1,10 +1,13 @@
 Package: shinyCyJS
-Title: Shiny application for Cytoscape.js
-Version: 0.0.8
-Authors@R: person("Jinhwan", "Kim", email = "kjh0530@unist.ac.kr", role = c("aut", "cre"))
+Title: R wrapper package with Shiny application for Cytoscape.js
+Version: 0.0.9
+Authors@R: person("Jinhwan", "Kim", email = "hwanistic@gmail.com", role = c("aut", "cre"))
 Description: link between shiny and cytoscape.js.
-Depends: R (>= 3.5.2)
-License: MIT + file License
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
+Imports:
+    htmlwidgets
+Suggests: 
+    testthat (>= 2.1.0)
