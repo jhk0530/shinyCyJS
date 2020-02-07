@@ -1,7 +1,7 @@
 dependencies:
  - name: cytoscape
-   version: 3.12.0
-   src: htmlwidgets/lib/cytoscape-3.12.0
+   version: 3.13.0
+   src: htmlwidgets/lib/cytoscape-3.13.0
    script: cytoscape.min.js
 
  - name: jquery
@@ -12,14 +12,14 @@ dependencies:
  - name: cola
    version: 2.3.0
    src: htmlwidgets/lib/cytoscape-cola
-   script: 
+   script:
     - cola.min.js
     - cytoscape-cola.js
 
  - name: klay
    version: 3.1.2
    src: htmlwidgets/lib/cytoscape-klay
-   script: 
+   script:
     - klay.js
     - cytoscape-klay.js
 
@@ -37,7 +37,7 @@ dependencies:
  - name: cytoscape-fcose
    version: 1.1.0
    src: htmlwidgets/lib/cytoscape-fcose
-   script : 
+   script :
     - numeric-1.2.6.js
     - layout-base.js
     - cose-base.js
@@ -46,13 +46,13 @@ dependencies:
  - name: cytoscape-spread
    version: 3.0.0
    src: htmlwidgets/lib/cytoscape-spread
-   script : 
+   script :
     - weaver.min.js
     - cytoscape-spread.js
 
  - name: cytoscape-dagre
    version: 2.2.2
    src : htmlwidgets/lib/cytoscape-dagre
-   script : 
+   script :
     - dagre.min.js
     - cytoscape-dagre.js
