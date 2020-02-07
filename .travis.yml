@@ -1,0 +1,15 @@
+language: r
+r:
+    - oldrel
+    - release
+    - devel
+os:
+    - osx
+    - linux
+
+matrix:
+    exclude:
+    - r: devel
+      os: osx
+    - r: release
+      os: osx

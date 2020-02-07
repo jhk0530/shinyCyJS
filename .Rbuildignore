@@ -2,3 +2,4 @@
 ^\.Rproj\.user$
 ^PNG$
 ^SVG$
+^\.travis\.yml$

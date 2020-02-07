@@ -1,5 +1,7 @@
 # shinyCyJS <img src='SVG/shinyCyJS.svg' width ='120' align='right'/>
 
+<img src='https://travis-ci.com/jhk0530/shinyCyJS.svg?branch=master'/>
+
 shinyCyJS is R/Shiny Package to use cytoscape.js in R environment. <br>
 
 cytoscape.js is a great javascript library for visualize/analysis Graph theory ( network ) <br>
