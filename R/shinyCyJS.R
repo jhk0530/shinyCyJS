@@ -15,33 +15,6 @@ shinyCyJS <- function(elements = list(), options = list(), layout = list(name = 
   )
 }
 
-#' @export
-buildIOptions <- function(...) {
-  # touchTapThreshold, desktopTapthreshold not available
-  options <- as.list(match.call())[-1] # remove function name
-  options <- options[
-    c(
-      "minZoom", "maxZoom", "zoomingEnabled",
-      "userZoomingEnabled", "panningEnabled", "userPanningEnabled",
-      "boxSelectionEnabled", "selectionType", "autolock",
-      "autoungrabify", "autounselectify"
-    )
-  ]
-  options[which(!sapply(options, is.null))] # if option not given : remove
-}
-
-#' @export
-buildROptions <- function(...) {
-  options <- as.list(match.call())[-1] # remove function name
-  options <- options[
-    c(
-      "headless", "styleEnabled", "hideEdgesOnViewport",
-      "hideLabelsOnViewport", "textureOnViewport", "motionBlur",
-      "motionBlurOpacity", "wheelSensitivity", "pixelRatio"
-    )
-  ]
-  options[which(!sapply(options, is.null))] # if option not given : remove
-}
 
 #' @export
 ShinyCyJSOutput <- function(outputId, width = "100%", height = "400px") {
@@ -116,16 +89,6 @@ buildEdge <- function(source, target, width = 3, curveStyle = "haystack",
   )
   l$data <- options
   l
-}
-
-#' @export
-viewElement <- function(elements) {
-  output <- data.frame(
-    id = character(),
-    type = factor(c("Node", "Edge")),
-    style = list(),
-    stringsAsFactors = FALSE
-  )
 }
 
 #' @export
