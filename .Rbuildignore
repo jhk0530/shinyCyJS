@@ -3,3 +3,4 @@
 ^PNG$
 ^SVG$
 ^\.travis\.yml$
+^README\.md$
