@@ -1,8 +1,8 @@
 Package: shinyCyJS
-Title: R Wrapper Package with Shiny Application for Cytoscape Javascript Library
+Title: Shiny Application for 'Cytoscape Javascript Library'
 Version: 0.0.9
 Authors@R: person("Jinhwan", "Kim", email = "hwanistic@gmail.com", role = c("aut", "cre"))
-Description: Link between Shiny and Cytoscape Javascript Library.
+Description: Link between Shiny and 'Cytoscape Javascript Library'.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
