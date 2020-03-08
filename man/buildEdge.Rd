@@ -9,6 +9,7 @@ buildEdge(
   target,
   width = 3,
   curveStyle = "haystack",
+  label = "",
   lineColor = "#FECA57",
   lineStyle = "solid",
   sourceArrowColor = "#feca57",
@@ -26,6 +27,8 @@ buildEdge(
 \item{width}{The width of an edge’s line. [numeric]}
 
 \item{curveStyle}{The curving method used to separate two or more edges between two nodes. [string]}
+
+\item{label}{edge's label [string]}
 
 \item{lineColor}{The colour of the edge’s line. [string]}
 
