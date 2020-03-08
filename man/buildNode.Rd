@@ -18,6 +18,7 @@ buildNode(
   borderColor = "#8395a7",
   borderOpacity = 1,
   isParent = FALSE,
+  label = NULL,
   labelColor = "#8395a7",
   textOpacity = 1,
   fontSize = 16,
@@ -62,6 +63,8 @@ buildNode(
 \item{borderOpacity}{The opacity of the node’s border. [numeric between 0 ~ 1]}
 
 \item{isParent}{whether this node is parent node or not [logical]}
+
+\item{label}{node's label, default is node's id [string]}
 
 \item{labelColor}{The color of node's label}
 
