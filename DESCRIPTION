@@ -1,9 +1,14 @@
 Package: shinyCyJS
-Title: Shiny Application for 'Cytoscape Javascript Library'
+Title: Create Interactive Network Visualizations in R and 'shiny'
 Version: 0.0.9
 Authors@R: person("Jinhwan", "Kim", email = "hwanistic@gmail.com", role = c("aut", "cre"))
-Description: Link between Shiny and 'Cytoscape Javascript Library'.
+Description: Create Interactive Graph (Network) Visualizations. 
+  'shinyCyJS' can be used in 'Shiny' apps or viewed from 'Rstudio' Viewer.
+  'shinyCyJS' includes API to build Graph model like node or edge with customized attributes for R. 
+  'shinyCyJS' is built with 'cytoscape.js' and 'htmlwidgets' R package.
 License: MIT + file LICENSE
+URL: https://github.com/jhk0530/shinyCyJS
+BugReports: https://github.com/jhk0530/shinyCyJS/issues
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.0.2
