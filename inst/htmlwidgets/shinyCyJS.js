@@ -75,6 +75,7 @@ HTMLWidgets.widget({
 			'curve-style': 'data(curveStyle)',
 			'line-color': 'data(lineColor)',
 			'line-style': 'data(lineStyle)',
+			'label': 'data(label)',
 			'source-arrow-color': 'data(sourceArrowColor)',
 			'source-arrow-shape': 'data(sourceArrowShape)',
 			'target-arrow-color': 'data(targetArrowColor)',
@@ -103,7 +104,7 @@ HTMLWidgets.widget({
 			// set Layout
 			var Layout = input.layout
 			cy.layout(Layout).run()
-			
+
 			// set Qtip
 			cy.ready(function(){
 				cy.on('mouseover', 'node', function (event) {
@@ -133,7 +134,7 @@ HTMLWidgets.widget({
 						}
 					})
 					}
-					
+
 				});
 			});
 		},
