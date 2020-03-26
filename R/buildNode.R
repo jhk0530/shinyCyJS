@@ -33,6 +33,7 @@
 #' @param tooltip Text for tooltip. [string]
 #'
 #'
+#' @return List typed Node element, consisted with data options ( id ) and style options ( width, shape... )
 #'
 #' @seealso https://js.cytoscape.org/#style
 #'

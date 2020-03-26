@@ -98,6 +98,9 @@ buildNode(
 
 \item{tooltip}{Text for tooltip. [string]}
 }
+\value{
+List typed Node element, consisted with data options ( id ) and style options ( width, shape... )
+}
 \description{
 build single node element.
 }

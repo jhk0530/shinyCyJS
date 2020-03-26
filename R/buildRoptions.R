@@ -13,6 +13,8 @@
 #' @param wheelSensitivity Changes the scroll wheel sensitivity when zooming. [numeric between 0 (zoom slower) ~ 1 (zoom faster)]
 #' @param pixelRatio Overrides the screen pixel ratio with a manually set value [numeric]
 #'
+#' @return List typed Rendering Option for Cytoscape.js canvas object.
+#'
 #' @examples
 #' ropt = buildROptions(wheelSensitivity = 0.5)
 #'

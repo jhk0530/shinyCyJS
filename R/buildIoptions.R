@@ -23,6 +23,7 @@
 #' boxSelectionEnabled = FALSE, selectionType = 'single', autolock = FALSE,
 #' autoungrabify = TRUE, autounselectify = FALSE)
 #'
+#' @return List typed Interact Option for Cytoscape.js canvas object.
 #'
 #' @seealso https://js.cytoscape.org/#core/initialisation
 #'

@@ -41,6 +41,9 @@ buildIOptions(
 
 \item{autounselectify}{Whether nodes should be unselectified (immutable selection state) by default (if true, overrides individual element state). [logical]}
 }
+\value{
+List typed Interact Option for Cytoscape.js canvas object.
+}
 \description{
 build Interact Option
 }
@@ -53,7 +56,6 @@ minZoom = 0.001, maxZoom = 3, zoomingEnabled = TRUE,
 userZoomingEnabled = FALSE, panningEnabled = TRUE, userPanningEnabled = TRUE,
 boxSelectionEnabled = FALSE, selectionType = 'single', autolock = FALSE,
 autoungrabify = TRUE, autounselectify = FALSE)
-
 
 }
 \seealso{

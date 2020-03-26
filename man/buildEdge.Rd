@@ -44,6 +44,9 @@ buildEdge(
 
 \item{opacity}{Opacity of edge itself. [numeric between 0 ~ 1]}
 }
+\value{
+List typed Edge element, consisted with data options ( source, target, data ) and style options ( width, curvestyle... )
+}
 \description{
 build single Edge element
 }

@@ -15,6 +15,8 @@
 #' @param targetArrowShape The shape of the edge’s target arrow. [string]
 #' @param opacity Opacity of edge itself. [numeric between 0 ~ 1]
 #'
+#' @return List typed Edge element, consisted with data options ( source, target, data ) and style options ( width, curvestyle... )
+#'
 #' @seealso https://js.cytoscape.org/#style
 #'
 #' @export

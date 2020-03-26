@@ -5,6 +5,7 @@
 #' @seealso buildNode(), buildEdge()
 #' @param elems value of elements consisted in dataframe
 #' @param type Either 'Node' or 'Edge' [string]
+#' @return List typed multiple 'Node' or 'Edge' elements. It consisted with repeated buildNode or buildEdge function results with given parameter.
 #'
 #' @export
 #'
