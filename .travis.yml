@@ -13,3 +13,6 @@ matrix:
       os: osx
     - r: release
       os: osx
+
+repos:
+    CRAN: https://cran.r-project.org
