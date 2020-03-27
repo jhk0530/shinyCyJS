@@ -1,6 +1,9 @@
 # shinyCyJS <img src='SVG/shinyCyJS.svg' width ='120' align='right'/>
 
 <img src='https://travis-ci.com/jhk0530/shinyCyJS.svg?branch=master'/>
+<img src='https://www.r-pkg.org/badges/version/shinyCyJS'/>
+
+
 
 shinyCyJS is R/Shiny Package to use cytoscape.js in R environment. <br>
 
