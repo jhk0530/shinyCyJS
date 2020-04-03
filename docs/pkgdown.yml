@@ -1,6 +1,10 @@
 pandoc: 2.7.2
 pkgdown: 1.5.0
 pkgdown_sha: ~
-articles: []
-last_built: 2020-04-03T12:17Z
+articles:
+  Build-Many-Element-With-Data-frame: Build-Many-Element-With-Data-frame.html
+  Pie-Chart-Background: Pie-Chart-Background.html
+  Taxi-Edges: Taxi-Edges.html
+  Tooltip-On-Hovering-Node: Tooltip-On-Hovering-Node.html
+last_built: 2020-04-03T17:43Z
 

@@ -1,0 +1,33 @@
+---
+title: "Taxi Edges"
+---
+
+For full description, see this [link](https://js.cytoscape.org/#style/taxi-edges)
+
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+```{r setup}
+library(shinyCyJS)
+```
+
+```{r}
+
+  shinyCyJS(
+    list(
+      buildNode("A"), 
+      buildNode("B"), 
+      buildNode("C"), 
+      buildEdge("A", "B", curveStyle = "taxi"), 
+      buildEdge("A", "C", curveStyle = "taxi")
+    )
+  )
+
+
+```

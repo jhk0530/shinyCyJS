@@ -1,0 +1,30 @@
+---
+title: "Pie Chart Background"
+---
+
+For full description, see this [link](https://js.cytoscape.org/#style/pie-chart-background) and [Demo app](https://js.cytoscape.org/demos/pie-style/) 
+
+- pieSize : Percentage value for each 1 ~ 16th pie.
+- pieColor : Each Pie's color value. hexValue is **recommended**.
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(shinyCyJS)
+```
+
+```{r}
+pieNode <- buildNode(id = 'pieNode', width = 100, height = 100, 
+    pieSize = c(40,40,20,0,0,0,0,0,0,0,0,0,0,0,0,0), 
+    pieColor = c('#e84118','#00a8ff','#4cd137',rep('#f5f6fa',13)),
+    labelColor = '#2f3640'
+  )
+
+shinyCyJS(pieNode)
+
+```

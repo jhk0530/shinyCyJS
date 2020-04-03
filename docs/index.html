@@ -34,7 +34,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">shinyCyJS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.12</span>
       </span>
     </div>
 
@@ -48,6 +48,30 @@
 </li>
 <li>
   <a href="reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="articles/Build-Many-Element-With-Data-frame.html">Build Many Element With data.frame</a>
+    </li>
+    <li>
+      <a href="articles/Pie-Chart-Background.html">Pie Chart Background</a>
+    </li>
+    <li>
+      <a href="articles/Taxi-Edges.html">Taxi Edges</a>
+    </li>
+    <li>
+      <a href="articles/Tooltip-On-Hovering-Node.html">Tooltip On Hovering Node</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="news/index.html">Changelog</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -72,7 +96,7 @@
 
 <div id="shinycyjs-" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#shinycyjs-" class="anchor"></a>shinyCyJS <img src="SVG/shinyCyJS.svg" width="120" align="right">
+<a href="#shinycyjs-" class="anchor"></a>shinyCyJS <img src="https://user-images.githubusercontent.com/6457691/78387821-e7e51a00-761a-11ea-9295-cd52c9e11c6f.png" width="120" align="right">
 </h1></div>
 <p><img src="https://travis-ci.com/jhk0530/shinyCyJS.svg?branch=master"><img src="https://www.r-pkg.org/badges/version/shinyCyJS"></p>
 <p>shinyCyJS is R/Shiny Package to use cytoscape.js in R environment. <br></p>
@@ -82,9 +106,15 @@
 <div id="how-to-install-" class="section level1">
 <h1 class="hasAnchor">
 <a href="#how-to-install-" class="anchor"></a>How to install :</h1>
-<div class="sourceCode" id="cb1"><pre class="r">library(devtools)
-install_github('unistbig/shinyCyJS')
-library(shinyCyJS)</pre></div>
+<div class="sourceCode" id="cb1"><pre class="r">
+# CRAN Ver, 0.0.11
+install.packages('shinyCyJS')
+
+# Development Ver, 0.0.12
+library(devtools)
+devtools::install_github('jhk0530/shinyCyJS')
+library(shinyCyJS)
+</pre></div>
 </div>
 <div id="example-" class="section level1">
 <h1 class="hasAnchor">
@@ -123,11 +153,6 @@ server = function(input, output, session){
 shinyApp(ui,server, options = list(launch.browser = TRUE, display.mode ='normal'))</pre></div>
 </details><p><img src="https://user-images.githubusercontent.com/6457691/68040069-d36dc000-fd10-11e9-9ef5-d021768ac548.gif" width="400"></p>
 </div>
-<div id="styles" class="section level1">
-<h1 class="hasAnchor">
-<a href="#styles" class="anchor"></a>Styles</h1>
-<hr>
-</div>
 <div id="used-in" class="section level1">
 <h1 class="hasAnchor">
 <a href="#used-in" class="anchor"></a>Used in</h1>
@@ -135,86 +160,8 @@ shinyApp(ui,server, options = list(launch.browser = TRUE, display.mode ='normal'
 </div>
 <div id="suggest-or-comment" class="section level1">
 <h1 class="hasAnchor">
-<a href="#suggest-or-comment" class="anchor"></a>suggest or comment</h1>
-<p><a href="mailto:hwanistic@gmail.com" class="email">hwanistic@gmail.com</a> Thanks !</p>
-</div>
-<div id="update-log" class="section level1">
-<h1 class="hasAnchor">
-<a href="#update-log" class="anchor"></a>update log</h1>
-<details><summary>0.0.2</summary><p>
-</p>
-<p>added pie background feature ( only size and color )<br><img src="https://user-images.githubusercontent.com/6457691/65883045-34803c00-e3d1-11e9-87f1-fb8dfc028484.png" width="150"><br> demo code : <br></p>
-<div class="sourceCode" id="cb3"><pre class="r">shinyCyJS(
-  buildNode(id = 'pieNode', width = 100, height = 100, 
-    pieSize = c(40,40,20,0,0,0,0,0,0,0,0,0,0,0,0,0), 
-    pieColor = c('cyan','magenta','yellow',rep('#000',13))
-  )
-)</pre></div>
-
-</details><details><summary>0.0.3</summary><p>
-bugFixed (pre-built elements didn’t clear when using rendershinyCyJS)
-</p>
-</details><details><summary>0.0.4</summary><p>
-</p>
-<p>tooltip feature available on Nodes</p>
-<p>for information,</p>
-<p>Qtip2 <a href="https://github.com/qTip2/qTip2" class="uri">https://github.com/qTip2/qTip2</a></p>
-<p>Cytoscape-Qtip <a href="https://github.com/cytoscape/cytoscape.js-qtip" class="uri">https://github.com/cytoscape/cytoscape.js-qtip</a></p>
-<p><img src="https://user-images.githubusercontent.com/6457691/66700551-70e65d00-ed2c-11e9-8b87-22074b228882.png" width="350"></p>
-<p>demo code :</p>
-<div class="sourceCode" id="cb4"><pre class="r">  <span class="fu"><a href="reference/shinyCyJS.html">shinyCyJS</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>( <span class="fu"><a href="reference/buildNode.html">buildNode</a></span>(<span class="st">'have tooltip'</span>,<span class="kw">tooltip</span> <span class="kw">=</span> <span class="st">'Tooltip!'</span>), <span class="fu"><a href="reference/buildNode.html">buildNode</a></span>(<span class="st">'not Tooltip'</span>)) )</pre></div>
-
-</details><details><summary>0.0.5</summary><p>
-</p>
-<p>now selected item will have different color, Node : <img src="https://placehold.it/15/ff00ff/000000?text=+" alt="#ff00ff">, Edge : <img src="https://placehold.it/15/000000/000000?text=+" alt="#000000"></p>
-<img src="https://user-images.githubusercontent.com/6457691/66729507-dbabab80-ee86-11e9-9544-ef9495aac21d.png" width="150"><img src="https://user-images.githubusercontent.com/6457691/66729506-db131500-ee86-11e9-8159-e89b0c6bb40c.png" width="150"><img src="https://user-images.githubusercontent.com/6457691/66729509-dbabab80-ee86-11e9-8800-0a945a92584b.png" width="150"></details><details><p><summary>0.0.6</summary> fcose, spread, dagre layout available.</p>
-<p>fcose <a href="https://github.com/iVis-at-Bilkent/cytoscape.js-fcose" class="uri">https://github.com/iVis-at-Bilkent/cytoscape.js-fcose</a></p>
-<p>spread <a href="https://github.com/cytoscape/cytoscape.js-spread" class="uri">https://github.com/cytoscape/cytoscape.js-spread</a></p>
-dagre <a href="https://github.com/cytoscape/cytoscape.js-dagre" class="uri">https://github.com/cytoscape/cytoscape.js-dagre</a>
-</details><details><summary>0.0.7</summary><p>
-</p>
-<p>now multiple elements with data.frame can be built with <b>buildElems</b></p>
-<p>below codes will work same</p>
-<div class="sourceCode" id="cb5"><pre class="r">  shinyCyJS(list(
-    buildNode('a'),
-    buildNode('b', width = 20),
-    buildNode('c', width = 30),
-    buildNode('d', width = 40),
-    buildEdge('a','b'),
-    buildEdge('a','c'),
-    buildEdge('c','d'),
-    buildEdge('b','d')
-    ))</pre></div>
-<div class="sourceCode" id="cb6"><pre class="r">  a = data.frame(
-    id = c('a','b','c','d'),
-    width = c(15,20,30,40)
-  )
-
-  b = data.frame(
-    source = c('a','a','c','b'),
-    target = c('b','c','d','d')
-  )
-
-  nodes = buildElems(a,'Node')
-  edges = buildElems(b,'Edge')
-
-  shinyCyJS(c(nodes, edges))</pre></div>
-
-</details><details><p><summary>0.0.8</summary> core file ( cytoscape.js ) has updated with recent version. now available with Taxi edge</p>
-<p><img src="https://user-images.githubusercontent.com/6457691/68363329-daac2800-016d-11ea-9545-7ea25882a27d.png"></p>
-<p>below code used to build this figure</p>
-<div class="sourceCode" id="cb7"><pre class="r">shinyCyJS(list(
-buildNode("A"), 
-buildNode("B"), 
-buildNode("C"), 
-buildEdge("A", "B", curveStyle = "taxi"), 
-buildEdge("A", "C", curveStyle = "taxi")))</pre></div>
-</details>
-</div>
-<div id="todo" class="section level1">
-<h1 class="hasAnchor">
-<a href="#todo" class="anchor"></a>todo</h1>
-<p>build readme ( manual ) <br> make funcion documents</p>
+<a href="#suggest-or-comment" class="anchor"></a>Suggest or comment</h1>
+<p>Make issue on <a href="https://github.com/jhk0530/shinyCyJS/issues">here</a></p>
 </div>
 
   </div>
