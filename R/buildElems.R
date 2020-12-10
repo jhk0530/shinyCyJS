@@ -29,7 +29,12 @@ buildElems <- function(elems, type) {
   for (i in 1:nrow(elems)) {
     command <- c()
     for (j in 1:length(params)) {
-      command[j] <- paste0(params[j], " = ", "'", elems[i, j], "'")
+      if(is.numeric(elems[i,j])){
+        command[j] <- paste0(params[j], " = ",  elems[i, j])
+      }
+      else{
+        command[j] <- paste0(params[j], " = ", "'", elems[i, j], "'")
+      }
     }
     command <- paste(command, collapse = ", ")
     command <- paste0(func, command, ")")
