@@ -76,6 +76,7 @@ HTMLWidgets.widget({
 			'line-color': 'data(lineColor)',
 			'line-style': 'data(lineStyle)',
 			'label': 'data(label)',
+-			'font-size': 'data(fontSize)',
 			'source-arrow-color': 'data(sourceArrowColor)',
 			'source-arrow-shape': 'data(sourceArrowShape)',
 			'target-arrow-color': 'data(targetArrowColor)',

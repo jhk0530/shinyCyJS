@@ -20,7 +20,7 @@
 #' @seealso https://js.cytoscape.org/#style
 #'
 #' @export
-buildEdge <- function(source = NULL, target, width = 3, curveStyle = "haystack", label = "",
+buildEdge <- function(source = NULL, target, width = 3, curveStyle = "haystack", label = "", fontSize = 16, 
                       lineColor = "#FECA57", lineStyle = "solid", sourceArrowColor = "#feca57",
                       targetArrowColor = "#feca57", sourceArrowShape = "none", targetArrowShape = "none",
                       opacity = 1) {
@@ -41,7 +41,7 @@ buildEdge <- function(source = NULL, target, width = 3, curveStyle = "haystack",
 
 
   options <- list(
-    source = source, target = target, width = width, label = label,
+    source = source, target = target, width = width, label = label, fontSize = fontSize,
     curveStyle = curveStyle, lineColor = lineColor, lineStyle = lineStyle,
     sourceArrowColor = sourceArrowColor, targetArrowColor = targetArrowColor,
     sourceArrowShape = sourceArrowShape, targetArrowShape = targetArrowShape,
