@@ -23,7 +23,7 @@
 buildEdge <- function(source = NULL, target, width = 3, curveStyle = "haystack", label = "", fontSize = 16, 
                       lineColor = "#FECA57", lineStyle = "solid", sourceArrowColor = "#feca57",
                       targetArrowColor = "#feca57", sourceArrowShape = "none", targetArrowShape = "none",
-                      opacity = 1) {
+                      opacity = 1, tooltip = "") {
   l <- list()
   l$group <- "edges"
 
@@ -45,7 +45,7 @@ buildEdge <- function(source = NULL, target, width = 3, curveStyle = "haystack",
     curveStyle = curveStyle, lineColor = lineColor, lineStyle = lineStyle,
     sourceArrowColor = sourceArrowColor, targetArrowColor = targetArrowColor,
     sourceArrowShape = sourceArrowShape, targetArrowShape = targetArrowShape,
-    opacity = opacity
+    opacity = opacity, tooltip = tooltip
   )
   l$data <- options
   return(l)

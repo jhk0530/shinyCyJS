@@ -76,12 +76,13 @@ HTMLWidgets.widget({
 			'line-color': 'data(lineColor)',
 			'line-style': 'data(lineStyle)',
 			'label': 'data(label)',
--			'font-size': 'data(fontSize)',
+			'font-size': 'data(fontSize)',
 			'source-arrow-color': 'data(sourceArrowColor)',
 			'source-arrow-shape': 'data(sourceArrowShape)',
 			'target-arrow-color': 'data(targetArrowColor)',
 			'target-arrow-shape': 'data(targetArrowShape)',
-			'opacity':'data(opacity)'
+			'opacity':'data(opacity)',
+			'tooltip' : 'data(tooltip)'
 		})
 		.selector(':selected').css({
 			'background-color': '#FF00FF',
@@ -109,6 +110,7 @@ HTMLWidgets.widget({
 			// set Qtip
 			cy.ready(function(){
 				cy.on('mouseover', 'node', function (event) {
+				    console.log("node", event)
 					var node = this;
 					$(".qtip").remove();
 					var tooltip = node.data("tooltip");
@@ -124,7 +126,37 @@ HTMLWidgets.widget({
 						},
 						hide: {
 							event: 'unfocus',
-							inactive: 2000
+							inactive: 20000
+						},
+						style: {
+							classes: 'qtip-bootstrap',
+							tip: {
+							  width: 16,
+							  height: 8
+							}
+						}
+					})
+					}
+
+				});
+				cy.on('mouseover', 'edge', function (event) {
+				    console.log("edge", event)
+					var node = this;
+					$(".qtip").remove();
+					var tooltip = node.data("tooltip");
+					if (tooltip != ''){
+						cy.getElementById(node.id()).qtip({
+						content: { text: tooltip },
+						show: { ready: true },
+						position: {
+							my: 'right center',
+							at: 'right center',
+							adjust: { cyViewport: true },
+							effect: false
+						},
+						hide: {
+							event: 'unfocus',
+							inactive: 20000
 						},
 						style: {
 							classes: 'qtip-bootstrap',
@@ -138,6 +170,7 @@ HTMLWidgets.widget({
 
 				});
 			});
+			
 		},
 		resize : function(width, height){
 			// not completely understand yet.
