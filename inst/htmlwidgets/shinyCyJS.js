@@ -108,69 +108,62 @@ HTMLWidgets.widget({
 			cy.layout(Layout).run()
 
 			// set Qtip
+
 			cy.ready(function(){
-				cy.on('mouseover', 'node', function (event) {
-				    console.log("node", event)
-					var node = this;
-					$(".qtip").remove();
-					var tooltip = node.data("tooltip");
-					if (tooltip != ''){
-						cy.getElementById(node.id()).qtip({
-						content: { text: tooltip },
-						show: { ready: true },
-						position: {
-							my: 'top center',
-							at: 'bottom center',
-							adjust: { cyViewport: true },
-							effect: false
-						},
-						hide: {
-							event: 'unfocus',
-							inactive: 20000
-						},
-						style: {
-							classes: 'qtip-bootstrap',
-							tip: {
-							  width: 16,
-							  height: 8
-							}
-						}
-					})
-					}
+                cy.nodes().qtip({
+                    content: function() {
+                      console.log("node", this)
+                      return this.data('tooltip')
+                    },
+                    position: {
+                      	my: 'top center',
+						at: 'bottom center'
+                    },
+                    style: {
+                      classes: 'qtip-bootstrap',
+                      tip: {
+                        width: 16,
+                        height: 8
+                      }
+                    },
+                	hide: {
+						event: 'unfocus',
+						inactive: 20000
+					},
+                    show: {
+                      event: 'mouseover',
+                      solo: true
+                    }
+                  });
 
-				});
-				cy.on('mouseover', 'edge', function (event) {
-				    console.log("edge", event)
-					var node = this;
-					$(".qtip").remove();
-					var tooltip = node.data("tooltip");
-					if (tooltip != ''){
-						cy.getElementById(node.id()).qtip({
-						content: { text: tooltip },
-						show: { ready: true },
-						position: {
-							my: 'right center',
-							at: 'right center',
-							adjust: { cyViewport: true },
-							effect: false
-						},
-						hide: {
-							event: 'unfocus',
-							inactive: 20000
-						},
-						style: {
-							classes: 'qtip-bootstrap',
-							tip: {
-							  width: 16,
-							  height: 8
-							}
-						}
-					})
-					}
+				cy.edges().qtip({
+                    content: function() {
+                      console.log("edge", this)
+                      return this.data('tooltip')
+                    },
+                    position: {
+                      	my: 'top center',
+						at: 'center center'
+                    },
+                    style: {
+                      classes: 'qtip-bootstrap',
+                      tip: {
+                        width: 16,
+                        height: 8
+                      }
+                    },
+                	hide: {
+						event: 'unfocus',
+						inactive: 20000
+					},
+                    show: {
+                      event: 'mouseover',
+                      solo: true
+                    }
+                  });
 
-				});
 			});
-			
+
 		},
 		resize : function(width, height){
 			// not completely understand yet.
