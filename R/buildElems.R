@@ -29,7 +29,9 @@ buildElems <- function(elems, type) {
   for (i in 1:nrow(elems)) {
     command <- c()
     for (j in 1:length(params)) {
-      command[j] <- paste0(params[j], " = ", '"', elems[i, j], '"')
+      s <- as.character(elems[i, j])
+      s <- gsub("'", "\\\\'", s)
+      command[j] <- paste0(params[j], " = ", "'", s, "'")
     }
     command <- paste(command, collapse = ", ")
     command <- paste0(func, command, ")")
