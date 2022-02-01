@@ -66,3 +66,9 @@ dependencies:
    version: 2.0.5
    src: htmlwidgets/lib/file-saver
    script: FileSaver.min.js
+
+ - name: cytoscape-panzoom
+   version: 2.5.3
+   src: htmlwidgets/lib/cytoscape-panzoom
+   script: cytoscape-panzoom.js
+   stylesheet: cytoscape.js-panzoom.css

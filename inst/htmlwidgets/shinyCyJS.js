@@ -90,6 +90,8 @@ HTMLWidgets.widget({
 		})
 	});
 
+    cy.panzoom()
+
     return {
 		renderValue: function(input){
 			// Options
