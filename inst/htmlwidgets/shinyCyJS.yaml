@@ -72,3 +72,13 @@ dependencies:
    src: htmlwidgets/lib/cytoscape-panzoom
    script: cytoscape-panzoom.js
    stylesheet: cytoscape.js-panzoom.css
+     
+ - name: cytoscape-cose-bilkent
+   version: 4.1.0
+   src: htmlwidgets/lib/cytoscape-cose-bilkent
+   script: cytoscape-cose-bilkent.js
+
+ - name: cose-base
+   version: 1.0.0
+   src: htmlwidgets/lib/cose-base
+   script: cytoscape-cose-bilkent.js
