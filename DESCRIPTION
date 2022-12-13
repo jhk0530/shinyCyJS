@@ -1,6 +1,6 @@
 Package: shinyCyJS
 Title: Create Interactive Network Visualizations in R and 'shiny'
-Version: 0.0.11
+Version: 0.0.12
 Authors@R: person("Jinhwan", "Kim", email = "hwanistic@gmail.com", role = c("aut", "cre", "cph"))
 Description: Create Interactive Graph (Network) Visualizations. 
   'shinyCyJS' can be used in 'Shiny' apps or viewed from 'Rstudio' Viewer.

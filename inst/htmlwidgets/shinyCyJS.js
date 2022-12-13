@@ -133,7 +133,7 @@ HTMLWidgets.widget({
 						inactive: 20000
 					},
                     show: {
-                      event: 'mouseover',
+                      event: 'click',
                       solo: true
                     }
                   });
@@ -159,7 +159,7 @@ HTMLWidgets.widget({
 						inactive: 20000
 					},
                     show: {
-                      event: 'mouseover',
+                      event: 'click',
                       solo: true
                     }
                   });
