@@ -11,6 +11,9 @@ buildElems(elems, type)
 
 \item{type}{Either 'Node' or 'Edge' [string]}
 }
+\value{
+List typed multiple 'Node' or 'Edge' elements. It consisted with repeated buildNode or buildEdge function results with given parameter.
+}
 \description{
 call buildNode or buildEdge function, note that only one function can be called
 }

@@ -1,0 +1,7 @@
+destination: docs
+news:
+  cran_dates: false
+navbar:
+  structure:
+    left:  [home, intro, reference, articles, tutorials, news]
+    right: [github]

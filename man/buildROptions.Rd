@@ -32,6 +32,9 @@ buildROptions(
 
 \item{pixelRatio}{Overrides the screen pixel ratio with a manually set value [numeric]}
 }
+\value{
+List typed Rendering Option for Cytoscape.js canvas object.
+}
 \description{
 build Rendering Option
 }

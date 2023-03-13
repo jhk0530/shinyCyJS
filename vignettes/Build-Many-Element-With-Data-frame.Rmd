@@ -1,0 +1,54 @@
+---
+title: "Build Many Element With data.frame"
+---
+
+If small amount of nodes / edges are needed to be plotted, using `buildNode` and `buildEdge` will fine. However in most case, almost ~ 100 element or more should be plotted.
+
+Which is not efficient with repetitive using of `buildNode` and `buildEdge`.
+
+`buildElem` is function for that case, which build uniform elements(only `node` or only `edge`).
+
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(shinyCyJS)
+```
+
+These 2 code will return same results. (nevermind layout, it contains randomness)
+
+```{r}
+  shinyCyJS(list(
+    buildNode('a'),
+    buildNode('b', width = 20),
+    buildNode('c', width = 30),
+    buildNode('d', width = 40),
+    buildEdge('a','b'),
+    buildEdge('a','c'),
+    buildEdge('c','d'),
+    buildEdge('b','d')
+    ))
+```
+
+
+```{r}
+  a = data.frame(
+    id = c('a','b','c','d'),
+    width = c(15,20,30,40)
+  )
+
+  b = data.frame(
+    source = c('a','a','c','b'),
+    target = c('b','c','d','d')
+  )
+
+  nodes = buildElems(a,'Node')
+  edges = buildElems(b,'Edge')
+
+  shinyCyJS(c(nodes, edges))
+```

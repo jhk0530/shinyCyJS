@@ -18,6 +18,7 @@ buildNode(
   borderColor = "#8395a7",
   borderOpacity = 1,
   isParent = FALSE,
+  label = NULL,
   labelColor = "#8395a7",
   textOpacity = 1,
   fontSize = 16,
@@ -63,6 +64,8 @@ buildNode(
 
 \item{isParent}{whether this node is parent node or not [logical]}
 
+\item{label}{node's label, default is node's id [string]}
+
 \item{labelColor}{The color of node's label}
 
 \item{textOpacity}{The opacity of the label text, including its outline. [numeric between 0 ~ 1]}
@@ -94,6 +97,9 @@ buildNode(
 \item{pieColor}{Color for each pie part. [string]}
 
 \item{tooltip}{Text for tooltip. [string]}
+}
+\value{
+List typed Node element, consisted with data options ( id ) and style options ( width, shape... )
 }
 \description{
 build single node element.

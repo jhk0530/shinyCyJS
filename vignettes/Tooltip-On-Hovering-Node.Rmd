@@ -1,0 +1,25 @@
+---
+title: "Tooltip On Hovering Node"
+---
+
+For full description, see this [cytoscape.js-qtip](https://github.com/cytoscape/cytoscape.js-qtip).
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(shinyCyJS)
+```
+
+```{r}
+
+NodeA <- buildNode('A',tooltip = 'Tooltip!')
+NodeB <- buildNode('B')
+Nodes <- list(NodeA,NodeB)
+shinyCyJS(Nodes)
+
+```

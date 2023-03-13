@@ -4,6 +4,7 @@
 #'
 #' @param source edge linked node's id. [string]
 #' @param target edge linked target node's id. [string]
+#' @param label edge's label [string]
 #' @param width The width of an edge’s line. [numeric]
 #' @param curveStyle The curving method used to separate two or more edges between two nodes. [string]
 #' @param lineColor The colour of the edge’s line. [string]
@@ -14,10 +15,12 @@
 #' @param targetArrowShape The shape of the edge’s target arrow. [string]
 #' @param opacity Opacity of edge itself. [numeric between 0 ~ 1]
 #'
+#' @return List typed Edge element, consisted with data options ( source, target, data ) and style options ( width, curvestyle... )
+#'
 #' @seealso https://js.cytoscape.org/#style
 #'
 #' @export
-buildEdge <- function(source = NULL, target, width = 3, curveStyle = "haystack",
+buildEdge <- function(source = NULL, target, width = 3, curveStyle = "haystack", label = "",
                       lineColor = "#FECA57", lineStyle = "solid", sourceArrowColor = "#feca57",
                       targetArrowColor = "#feca57", sourceArrowShape = "none", targetArrowShape = "none",
                       opacity = 1) {
@@ -38,7 +41,7 @@ buildEdge <- function(source = NULL, target, width = 3, curveStyle = "haystack",
 
 
   options <- list(
-    source = source, target = target, width = width,
+    source = source, target = target, width = width, label = label,
     curveStyle = curveStyle, lineColor = lineColor, lineStyle = lineStyle,
     sourceArrowColor = sourceArrowColor, targetArrowColor = targetArrowColor,
     sourceArrowShape = sourceArrowShape, targetArrowShape = targetArrowShape,

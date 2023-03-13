@@ -14,6 +14,7 @@
 #' @param borderColor The colour of the node’s border. [string]
 #' @param borderOpacity The opacity of the node’s border. [numeric between 0 ~ 1]
 #' @param isParent whether this node is parent node or not [logical]
+#' @param label node's label, default is node's id [string]
 #' @param labelColor The color of node's label
 #' @param textOpacity The opacity of the label text, including its outline. [numeric between 0 ~ 1]
 #' @param fontSize The size of the label text. [numeric]
@@ -32,6 +33,7 @@
 #' @param tooltip Text for tooltip. [string]
 #'
 #'
+#' @return List typed Node element, consisted with data options ( id ) and style options ( width, shape... )
 #'
 #' @seealso https://js.cytoscape.org/#style
 #'
@@ -42,7 +44,7 @@
 buildNode <- function(
   id = NULL, width = 15, height = 15, shape = "ellipse", bgColor = "#48DBFB",
   bgOpacity = 1, bgFill = "solid", bgBlacken = 0, borderWidth = 0, borderStyle = "solid",
-  borderColor = "#8395a7", borderOpacity = 1, isParent = FALSE, labelColor = "#8395a7",
+  borderColor = "#8395a7", borderOpacity = 1, isParent = FALSE, label = NULL, labelColor = "#8395a7",
   textOpacity = 1, fontSize = 16, textOutlineColor = "#222f3e", textOutlineOpacity = 1,
   textOutlineWidth = 0, textbgColor = "#FFF", textbgOpacity = 0, textBorderColor = "#222f3e",
   textBorderOpacity = 0, textBorderWidth = 0, parent = NULL, opacity = 1, pieSize = rep("0%", 16), pieColor = rep("#000", 16), tooltip = "") {
@@ -55,11 +57,12 @@ buildNode <- function(
                    ,'round-rectangle','bottom-round-rectangle','cut-rectagnel','barrel','rhomboid',
                    'diamond','round-diamond','pentagon','round-pentagon','concave-hexagon','heptagon','round-heptagon',
                    'octagon','round-octagon','star','tag','round-tag','vee')) stop('wrong shape, check https://js.cytoscape.org/#style/node-body')
+  if(is.null(label)) label = id
 
   l <- list(group = "nodes")
 
   options <- list(
-    width = width, height = height, label = id, id = id, shape = shape,
+    width = width, height = height, label = label, id = id, shape = shape,
     bgColor = bgColor, bgOpacity = bgOpacity, bgFill = bgFill, bgBlacken = bgBlacken,
     borderWidth = borderWidth, borderStyle = borderStyle, borderColor = borderColor,
     borderOpacity = borderOpacity, labelColor = labelColor, textOpacity = textOpacity,
