@@ -8,7 +8,7 @@
 shinyCyJS is R/Shiny Package to use cytoscape.js in R environment. <br>
 
 cytoscape.js is a great javascript library for visualize/analysis Graph theory ( network ) <br>
-if you interested, please refer this [Link](https://js.cytoscape.org/, "link") <br>
+if you interested, please refer to this [Link](https://js.cytoscape.org/ "link"). <br>
 
 shinyCyJS is built with cytoscape.js version 3.12.0. (2019/11)
 
