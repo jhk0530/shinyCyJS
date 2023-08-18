@@ -22,20 +22,7 @@
 #'
 #'
 buildElems <- function(elems, type) {
-  func <- paste0("build", type, "(")
-
-  res <- list()
-  params <- colnames(elems)
-  for (i in 1:nrow(elems)) {
-    command <- c()
-    for (j in 1:length(params)) {
-      s <- as.character(elems[i, j])
-      s <- gsub("'", "\\\\'", s)
-      command[j] <- paste0(params[j], " = ", "'", s, "'")
-    }
-    command <- paste(command, collapse = ", ")
-    command <- paste0(func, command, ")")
-    res[[length(res) + 1]] <- eval(parse(text = command))
-  }
+  func <- paste0("build", type)
+  res <- lapply(seq_len(nrow(elems)), function(i) do.call(func, as.list(elems[i,])))
   return(res)
 }
