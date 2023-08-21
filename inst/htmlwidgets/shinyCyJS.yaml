@@ -81,4 +81,4 @@ dependencies:
  - name: cose-base
    version: 1.0.0
    src: htmlwidgets/lib/cose-base
-   script: cytoscape-cose-bilkent.js
+   script: cose-base.js
