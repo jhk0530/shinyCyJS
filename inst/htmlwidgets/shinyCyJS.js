@@ -90,7 +90,49 @@ HTMLWidgets.widget({
 		})
 	});
 
-    cy.panzoom()
+
+  // check if font-awesome is available
+  var span = document.createElement('span');
+
+  span.className = 'fa';
+  span.style.display = 'none';
+  document.body.insertBefore(span, document.body.firstChild);
+  let compFont = window.getComputedStyle(span, null).getPropertyValue("font-family");
+
+  if (!compFont.toLowerCase().includes("awesome")) {
+    var styleSheet = document.createElement("style")
+    styleSheet.innerText = `
+    .my-icon {
+      display: table-cell;
+      text-align: center;
+      vertical-align: middle;
+      width: 10px;
+    }
+    .my-plus::before {
+      content: "+";
+    }
+    .my-minus::before {
+      content: "-";
+    }
+    .my-expand::before {
+      content: "⤢"
+    }
+    .my-handle {
+    }
+    `
+    document.head.appendChild(styleSheet)
+
+    panzoomOptions = {
+      sliderHandleIcon: 'my-icon my-handle',
+      zoomInIcon: 'my-icon my-plus',
+      zoomOutIcon: 'my-icon my-minus',
+      resetIcon: 'my-icon my-expand'
+    }
+  } else {
+    panzoomOptions = {}
+  }
+
+  cy.panzoom(panzoomOptions)
 
     return {
 		renderValue: function(input){
