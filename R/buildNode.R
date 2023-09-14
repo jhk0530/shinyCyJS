@@ -47,7 +47,8 @@ buildNode <- function(
   borderColor = "#8395a7", borderOpacity = 1, isParent = FALSE, label = NULL, labelColor = "#8395a7",
   textOpacity = 1, fontSize = 16, textOutlineColor = "#222f3e", textOutlineOpacity = 1,
   textOutlineWidth = 0, textbgColor = "#FFF", textbgOpacity = 0, textBorderColor = "#222f3e",
-  textBorderOpacity = 0, textBorderWidth = 0, parent = NULL, opacity = 1, pieSize = rep("0%", 16), pieColor = rep("#000", 16), tooltip = "") {
+  textBorderOpacity = 0, textBorderWidth = 0, parent = NULL, opacity = 1, pieSize = rep("0%", 16), pieColor = rep("#000", 16), tooltip = "",
+  position.x = 0, position.y = 0) {
 
   if(is.null(id)) stop('id must given')
   if(!is.character(id)) stop('id must be string')
@@ -86,5 +87,6 @@ buildNode <- function(
   }
 
   l$data <- options
+  l$position <- list(x=position.x, y=position.y)
   return(l)
 }
