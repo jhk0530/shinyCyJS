@@ -76,17 +76,63 @@ HTMLWidgets.widget({
 			'line-color': 'data(lineColor)',
 			'line-style': 'data(lineStyle)',
 			'label': 'data(label)',
+			'font-size': 'data(fontSize)',
 			'source-arrow-color': 'data(sourceArrowColor)',
 			'source-arrow-shape': 'data(sourceArrowShape)',
 			'target-arrow-color': 'data(targetArrowColor)',
 			'target-arrow-shape': 'data(targetArrowShape)',
-			'opacity':'data(opacity)'
+			'opacity':'data(opacity)',
+			'tooltip' : 'data(tooltip)'
 		})
 		.selector(':selected').css({
 			'background-color': '#FF00FF',
 			'line-color': 'black'
 		})
 	});
+
+
+  // check if font-awesome is available
+  var span = document.createElement('span');
+
+  span.className = 'fa';
+  span.style.display = 'none';
+  document.body.insertBefore(span, document.body.firstChild);
+  let compFont = window.getComputedStyle(span, null).getPropertyValue("font-family");
+
+  if (!compFont.toLowerCase().includes("awesome")) {
+    var styleSheet = document.createElement("style")
+    styleSheet.innerText = `
+    .my-icon {
+      display: table-cell;
+      text-align: center;
+      vertical-align: middle;
+      width: 10px;
+    }
+    .my-plus::before {
+      content: "+";
+    }
+    .my-minus::before {
+      content: "-";
+    }
+    .my-expand::before {
+      content: "⤢"
+    }
+    .my-handle {
+    }
+    `
+    document.head.appendChild(styleSheet)
+
+    panzoomOptions = {
+      sliderHandleIcon: 'my-icon my-handle',
+      zoomInIcon: 'my-icon my-plus',
+      zoomOutIcon: 'my-icon my-minus',
+      resetIcon: 'my-icon my-expand'
+    }
+  } else {
+    panzoomOptions = {}
+  }
+
+  cy.panzoom(panzoomOptions)
 
     return {
 		renderValue: function(input){
@@ -106,37 +152,62 @@ HTMLWidgets.widget({
 			cy.layout(Layout).run()
 
 			// set Qtip
-			cy.ready(function(){
-				cy.on('mouseover', 'node', function (event) {
-					var node = this;
-					$(".qtip").remove();
-					var tooltip = node.data("tooltip");
-					if (tooltip != ''){
-						cy.getElementById(node.id()).qtip({
-						content: { text: tooltip },
-						show: { ready: true },
-						position: {
-							my: 'top center',
-							at: 'bottom center',
-							adjust: { cyViewport: true },
-							effect: false
-						},
-						hide: {
-							event: 'unfocus',
-							inactive: 2000
-						},
-						style: {
-							classes: 'qtip-bootstrap',
-							tip: {
-							  width: 16,
-							  height: 8
-							}
-						}
-					})
-					}
 
-				});
+			cy.ready(function(){
+                cy.nodes().qtip({
+                    content: function() {
+                      console.log("node", this)
+                      return this.data('tooltip')
+                    },
+                    position: {
+                      	my: 'top center',
+						at: 'bottom center'
+                    },
+                    style: {
+                      classes: 'qtip-bootstrap',
+                      tip: {
+                        width: 16,
+                        height: 8
+                      }
+                    },
+                	hide: {
+						event: 'unfocus',
+						inactive: 20000
+					},
+                    show: {
+                      event: 'click',
+                      solo: true
+                    }
+                  });
+
+				cy.edges().qtip({
+                    content: function() {
+                      console.log("edge", this)
+                      return this.data('tooltip')
+                    },
+                    position: {
+                      	my: 'top center',
+						at: 'center center'
+                    },
+                    style: {
+                      classes: 'qtip-bootstrap',
+                      tip: {
+                        width: 16,
+                        height: 8
+                      }
+                    },
+                	hide: {
+						event: 'unfocus',
+						inactive: 20000
+					},
+                    show: {
+                      event: 'click',
+                      solo: true
+                    }
+                  });
+
 			});
+
 		},
 		resize : function(width, height){
 			// not completely understand yet.
