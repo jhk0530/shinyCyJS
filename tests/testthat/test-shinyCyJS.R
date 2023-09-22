@@ -59,6 +59,17 @@ test_that('buildEdge format check',{
   expect_error(buildEdge('S','T',opacity = 2)) # opacity
 })
 
+test_that('buildElems handle quotes', {
+  nodes <- buildElems( # will generate 5 nodes
+     elems = data.frame(
+       id = paste0('node',1:2),
+       label = "asd'ads\"qweq",
+       stringsAsFactors = FALSE
+     ), type = "Node")
+
+  expect_true(!is.null(nodes))
+})
+
 test_that('buildNode default check', {
   # too long, just check member and length is fine
   testNode = buildNode('testID')

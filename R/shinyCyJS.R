@@ -12,7 +12,7 @@
 #'
 #' @export
 shinyCyJS <- function(elements = list(), options = list(), layout = list(name = "cose"),
-                      width = NULL, height = NULL, elementId = NULL) {
+                      width = NULL, height = NULL, elementId = NULL, ...) {
   input <- list(elements = elements, options = options, layout = layout)
 
   htmlwidgets::createWidget(
@@ -21,7 +21,8 @@ shinyCyJS <- function(elements = list(), options = list(), layout = list(name = 
     width = width,
     height = height,
     package = "shinyCyJS",
-    elementId = elementId
+    elementId = elementId,
+    ...
   )
 }
 
