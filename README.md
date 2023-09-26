@@ -1,5 +1,3 @@
-> Note, This package is archived. (not maintained)
-
 # shinyCyJS <img src="https://user-images.githubusercontent.com/6457691/78387821-e7e51a00-761a-11ea-9295-cd52c9e11c6f.png" width="120" align="right"/>
 
 <img src="https://www.r-pkg.org/badges/version/shinyCyJS"/>
