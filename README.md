@@ -1,21 +1,18 @@
 > Note, This package is archived. (not maintained)
 
-# shinyCyJS <img src='https://user-images.githubusercontent.com/6457691/78387821-e7e51a00-761a-11ea-9295-cd52c9e11c6f.png' width ='120' align='right'/>
+# shinyCyJS <img src="https://user-images.githubusercontent.com/6457691/78387821-e7e51a00-761a-11ea-9295-cd52c9e11c6f.png" width="120" align="right"/>
 
-<img src='https://travis-ci.com/jhk0530/shinyCyJS.svg?branch=master'/>
-<img src='https://www.r-pkg.org/badges/version/shinyCyJS'/>
+<img src="https://travis-ci.com/jhk0530/shinyCyJS.svg?branch=master"/> <img src="https://www.r-pkg.org/badges/version/shinyCyJS"/>
 
 shinyCyJS is R/Shiny Package to use cytoscape.js in R environment. <br>
 
-cytoscape.js is a great javascript library for visualize/analysis Graph theory ( network ) <br>
-if you interested, please refer to this [Link](https://js.cytoscape.org/ "link"). <br>
+cytoscape.js is a great javascript library for visualize/analysis Graph theory ( network ) <br> if you interested, please refer to this [Link](https://js.cytoscape.org/). <br>
 
 shinyCyJS is built with cytoscape.js version 3.12.0. (2019/11)
 
+# How to install :
 
-# How to install : 
-
-```r
+``` r
 
 # CRAN Ver, 0.0.11
 install.packages('shinyCyJS')
@@ -25,16 +22,17 @@ library(devtools)
 devtools::install_github('jhk0530/shinyCyJS')
 library(shinyCyJS)
 
-
 ```
 
-# Example : 
+# Example :
 
 bulid Graph with node 4 = A, B, C, D and edge = A-B, B-C, C-D, B-D <br>
 
-<details><summary>Code</summary>
+<details>
 
-```r
+<summary>Code</summary>
+
+``` r
 library(shiny)
 library(shinyCyJS)
 
@@ -65,16 +63,19 @@ server = function(input, output, session){
 }
 
 shinyApp(ui,server, options = list(launch.browser = TRUE, display.mode ='normal'))
-
 ```
+
 </details>
 
-<img src = 'https://user-images.githubusercontent.com/6457691/68040069-d36dc000-fd10-11e9-9ef5-d021768ac548.gif' width = 400></img>
+<img src="https://user-images.githubusercontent.com/6457691/68040069-d36dc000-fd10-11e9-9ef5-d021768ac548.gif" width="400"/></img>
 
-# Used in 
+# Versions of Javascripts
 
-netGO <https://github.com/unistbig/netGO> <br>
-GScluster <https://github.com/unistbig/GScluster> ( on progress ) <br>
+see `inst/htmlwidgets/shinyCyJS.yaml`
+
+# Used in
+
+<a href = 'https://academic.oup.com/bioinformatics/article/36/10/3283/5728635' target = "_blank"> netGO </a> <br> <a href = 'https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-019-5738-6' target = '_blank'> GScluster </a> <br>
 
 # Suggest or comment
 
