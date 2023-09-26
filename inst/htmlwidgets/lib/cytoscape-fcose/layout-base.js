@@ -73,7 +73,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 26);
+/******/ 	return __webpack_require__(__webpack_require__.s = 28);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -308,7 +308,7 @@ var Integer = __webpack_require__(10);
 var RectangleD = __webpack_require__(13);
 var LayoutConstants = __webpack_require__(0);
 var RandomSeed = __webpack_require__(16);
-var PointD = __webpack_require__(4);
+var PointD = __webpack_require__(5);
 
 function LNode(gm, loc, size, vNode) {
   //Alternative constructor 1 : LNode(LGraphManager gm, Point loc, Dimension size, Object vNode)
@@ -574,18 +574,28 @@ LNode.prototype.updateBounds = function () {
       var width = childGraph.getRight() - childGraph.getLeft();
       var height = childGraph.getBottom() - childGraph.getTop();
 
-      if (this.labelWidth > width) {
-        this.rect.x -= (this.labelWidth - width) / 2;
-        this.setWidth(this.labelWidth);
+      if (this.labelWidth) {
+        if (this.labelPosHorizontal == "left") {
+          this.rect.x -= this.labelWidth;
+          this.setWidth(width + this.labelWidth);
+        } else if (this.labelPosHorizontal == "center" && this.labelWidth > width) {
+          this.rect.x -= (this.labelWidth - width) / 2;
+          this.setWidth(this.labelWidth);
+        } else if (this.labelPosHorizontal == "right") {
+          this.setWidth(width + this.labelWidth);
+        }
       }
 
-      if (this.labelHeight > height) {
-        if (this.labelPos == "center") {
+      if (this.labelHeight) {
+        if (this.labelPosVertical == "top") {
+          this.rect.y -= this.labelHeight;
+          this.setHeight(height + this.labelHeight);
+        } else if (this.labelPosVertical == "center" && this.labelHeight > height) {
           this.rect.y -= (this.labelHeight - height) / 2;
-        } else if (this.labelPos == "top") {
-          this.rect.y -= this.labelHeight - height;
+          this.setHeight(this.labelHeight);
+        } else if (this.labelPosVertical == "bottom") {
+          this.setHeight(height + this.labelHeight);
         }
-        this.setHeight(this.labelHeight);
       }
     }
   }
@@ -654,6 +664,47 @@ module.exports = LNode;
 "use strict";
 
 
+var LayoutConstants = __webpack_require__(0);
+
+function FDLayoutConstants() {}
+
+//FDLayoutConstants inherits static props in LayoutConstants
+for (var prop in LayoutConstants) {
+  FDLayoutConstants[prop] = LayoutConstants[prop];
+}
+
+FDLayoutConstants.MAX_ITERATIONS = 2500;
+
+FDLayoutConstants.DEFAULT_EDGE_LENGTH = 50;
+FDLayoutConstants.DEFAULT_SPRING_STRENGTH = 0.45;
+FDLayoutConstants.DEFAULT_REPULSION_STRENGTH = 4500.0;
+FDLayoutConstants.DEFAULT_GRAVITY_STRENGTH = 0.4;
+FDLayoutConstants.DEFAULT_COMPOUND_GRAVITY_STRENGTH = 1.0;
+FDLayoutConstants.DEFAULT_GRAVITY_RANGE_FACTOR = 3.8;
+FDLayoutConstants.DEFAULT_COMPOUND_GRAVITY_RANGE_FACTOR = 1.5;
+FDLayoutConstants.DEFAULT_USE_SMART_IDEAL_EDGE_LENGTH_CALCULATION = true;
+FDLayoutConstants.DEFAULT_USE_SMART_REPULSION_RANGE_CALCULATION = true;
+FDLayoutConstants.DEFAULT_COOLING_FACTOR_INCREMENTAL = 0.3;
+FDLayoutConstants.COOLING_ADAPTATION_FACTOR = 0.33;
+FDLayoutConstants.ADAPTATION_LOWER_NODE_LIMIT = 1000;
+FDLayoutConstants.ADAPTATION_UPPER_NODE_LIMIT = 5000;
+FDLayoutConstants.MAX_NODE_DISPLACEMENT_INCREMENTAL = 100.0;
+FDLayoutConstants.MAX_NODE_DISPLACEMENT = FDLayoutConstants.MAX_NODE_DISPLACEMENT_INCREMENTAL * 3;
+FDLayoutConstants.MIN_REPULSION_DIST = FDLayoutConstants.DEFAULT_EDGE_LENGTH / 10.0;
+FDLayoutConstants.CONVERGENCE_CHECK_PERIOD = 100;
+FDLayoutConstants.PER_LEVEL_IDEAL_EDGE_LENGTH_FACTOR = 0.1;
+FDLayoutConstants.MIN_EDGE_LENGTH = 1;
+FDLayoutConstants.GRID_CALCULATION_CHECK_PERIOD = 10;
+
+module.exports = FDLayoutConstants;
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 function PointD(x, y) {
   if (x == null && y == null) {
     this.x = 0;
@@ -697,7 +748,7 @@ PointD.prototype.translate = function (dim) {
 module.exports = PointD;
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -706,7 +757,7 @@ module.exports = PointD;
 var LGraphObject = __webpack_require__(2);
 var Integer = __webpack_require__(10);
 var LayoutConstants = __webpack_require__(0);
-var LGraphManager = __webpack_require__(6);
+var LGraphManager = __webpack_require__(7);
 var LNode = __webpack_require__(3);
 var LEdge = __webpack_require__(1);
 var RectangleD = __webpack_require__(13);
@@ -1123,7 +1174,7 @@ LGraph.prototype.updateConnected = function () {
 module.exports = LGraph;
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1133,7 +1184,7 @@ var LGraph;
 var LEdge = __webpack_require__(1);
 
 function LGraphManager(layout) {
-  LGraph = __webpack_require__(5); // It may be better to initilize this out of this function but it gives an error (Right-hand side of 'instanceof' is not callable) now.
+  LGraph = __webpack_require__(6); // It may be better to initilize this out of this function but it gives an error (Right-hand side of 'instanceof' is not callable) now.
   this.layout = layout;
 
   this.graphs = [];
@@ -1549,60 +1600,27 @@ LGraphManager.prototype.calcInclusionTreeDepths = function (graph, depth) {
 
 LGraphManager.prototype.includesInvalidEdge = function () {
   var edge;
+  var edgesToRemove = [];
 
   var s = this.edges.length;
   for (var i = 0; i < s; i++) {
     edge = this.edges[i];
 
     if (this.isOneAncestorOfOther(edge.source, edge.target)) {
-      return true;
+      edgesToRemove.push(edge);
     }
   }
+
+  // Remove invalid edges from graph manager
+  for (var i = 0; i < edgesToRemove.length; i++) {
+    this.remove(edgesToRemove[i]);
+  }
+
+  // Invalid edges are cleared, so return false
   return false;
 };
 
 module.exports = LGraphManager;
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var LayoutConstants = __webpack_require__(0);
-
-function FDLayoutConstants() {}
-
-//FDLayoutConstants inherits static props in LayoutConstants
-for (var prop in LayoutConstants) {
-  FDLayoutConstants[prop] = LayoutConstants[prop];
-}
-
-FDLayoutConstants.MAX_ITERATIONS = 2500;
-
-FDLayoutConstants.DEFAULT_EDGE_LENGTH = 50;
-FDLayoutConstants.DEFAULT_SPRING_STRENGTH = 0.45;
-FDLayoutConstants.DEFAULT_REPULSION_STRENGTH = 4500.0;
-FDLayoutConstants.DEFAULT_GRAVITY_STRENGTH = 0.4;
-FDLayoutConstants.DEFAULT_COMPOUND_GRAVITY_STRENGTH = 1.0;
-FDLayoutConstants.DEFAULT_GRAVITY_RANGE_FACTOR = 3.8;
-FDLayoutConstants.DEFAULT_COMPOUND_GRAVITY_RANGE_FACTOR = 1.5;
-FDLayoutConstants.DEFAULT_USE_SMART_IDEAL_EDGE_LENGTH_CALCULATION = true;
-FDLayoutConstants.DEFAULT_USE_SMART_REPULSION_RANGE_CALCULATION = true;
-FDLayoutConstants.DEFAULT_COOLING_FACTOR_INCREMENTAL = 0.3;
-FDLayoutConstants.COOLING_ADAPTATION_FACTOR = 0.33;
-FDLayoutConstants.ADAPTATION_LOWER_NODE_LIMIT = 1000;
-FDLayoutConstants.ADAPTATION_UPPER_NODE_LIMIT = 5000;
-FDLayoutConstants.MAX_NODE_DISPLACEMENT_INCREMENTAL = 100.0;
-FDLayoutConstants.MAX_NODE_DISPLACEMENT = FDLayoutConstants.MAX_NODE_DISPLACEMENT_INCREMENTAL * 3;
-FDLayoutConstants.MIN_REPULSION_DIST = FDLayoutConstants.DEFAULT_EDGE_LENGTH / 10.0;
-FDLayoutConstants.CONVERGENCE_CHECK_PERIOD = 100;
-FDLayoutConstants.PER_LEVEL_IDEAL_EDGE_LENGTH_FACTOR = 0.1;
-FDLayoutConstants.MIN_EDGE_LENGTH = 1;
-FDLayoutConstants.GRID_CALCULATION_CHECK_PERIOD = 10;
-
-module.exports = FDLayoutConstants;
 
 /***/ }),
 /* 8 */
@@ -2078,6 +2096,57 @@ IGeometry.doIntersect = function (p1, p2, p3, p4) {
   }
 };
 
+/**
+ * This method checks and calculates the intersection of 
+ * a line segment and a circle.
+ */
+IGeometry.findCircleLineIntersections = function (Ex, Ey, Lx, Ly, Cx, Cy, r) {
+
+  // E is the starting point of the ray,
+  // L is the end point of the ray,
+  // C is the center of sphere you're testing against
+  // r is the radius of that sphere
+
+  // Compute:
+  // d = L - E ( Direction vector of ray, from start to end )
+  // f = E - C ( Vector from center sphere to ray start )
+
+  // Then the intersection is found by..
+  // P = E + t * d
+  // This is a parametric equation:
+  // Px = Ex + tdx
+  // Py = Ey + tdy
+
+  // get a, b, c values
+  var a = (Lx - Ex) * (Lx - Ex) + (Ly - Ey) * (Ly - Ey);
+  var b = 2 * ((Ex - Cx) * (Lx - Ex) + (Ey - Cy) * (Ly - Ey));
+  var c = (Ex - Cx) * (Ex - Cx) + (Ey - Cy) * (Ey - Cy) - r * r;
+
+  // get discriminant
+  var disc = b * b - 4 * a * c;
+  if (disc >= 0) {
+    // insert into quadratic formula
+    var t1 = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+    var t2 = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+    var intersections = null;
+    if (t1 >= 0 && t1 <= 1) {
+      // t1 is the intersection, and it's closer than t2
+      // (since t1 uses -b - discriminant)
+      // Impale, Poke
+      return [t1];
+    }
+
+    // here t1 didn't intersect so we are either started
+    // inside the sphere or completely past it
+    if (t2 >= 0 && t2 <= 1) {
+      // ExitWound
+      return [t2];
+    }
+
+    return intersections;
+  } else return null;
+};
+
 // -----------------------------------------------------------------------------
 // Section: Class Constants
 // -----------------------------------------------------------------------------
@@ -2546,13 +2615,13 @@ module.exports = UniqueIDGeneretor;
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 var LayoutConstants = __webpack_require__(0);
-var LGraphManager = __webpack_require__(6);
+var LGraphManager = __webpack_require__(7);
 var LNode = __webpack_require__(3);
 var LEdge = __webpack_require__(1);
-var LGraph = __webpack_require__(5);
-var PointD = __webpack_require__(4);
+var LGraph = __webpack_require__(6);
+var PointD = __webpack_require__(5);
 var Transform = __webpack_require__(17);
-var Emitter = __webpack_require__(27);
+var Emitter = __webpack_require__(29);
 
 function Layout(isRemoteUse) {
   Emitter.call(this);
@@ -3148,6 +3217,7 @@ module.exports = Layout;
 
 
 function RandomSeed() {}
+// adapted from: https://stackoverflow.com/a/19303725
 RandomSeed.seed = 1;
 RandomSeed.x = 0;
 
@@ -3165,7 +3235,7 @@ module.exports = RandomSeed;
 "use strict";
 
 
-var PointD = __webpack_require__(4);
+var PointD = __webpack_require__(5);
 
 function Transform(x, y) {
   this.lworldOrgX = 0.0;
@@ -3300,7 +3370,7 @@ module.exports = Transform;
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 var Layout = __webpack_require__(15);
-var FDLayoutConstants = __webpack_require__(7);
+var FDLayoutConstants = __webpack_require__(4);
 var LayoutConstants = __webpack_require__(0);
 var IGeometry = __webpack_require__(8);
 var IMath = __webpack_require__(9);
@@ -3309,9 +3379,6 @@ function FDLayout() {
   Layout.call(this);
 
   this.useSmartIdealEdgeLengthCalculation = FDLayoutConstants.DEFAULT_USE_SMART_IDEAL_EDGE_LENGTH_CALCULATION;
-  this.idealEdgeLength = FDLayoutConstants.DEFAULT_EDGE_LENGTH;
-  this.springConstant = FDLayoutConstants.DEFAULT_SPRING_STRENGTH;
-  this.repulsionConstant = FDLayoutConstants.DEFAULT_REPULSION_STRENGTH;
   this.gravityConstant = FDLayoutConstants.DEFAULT_GRAVITY_STRENGTH;
   this.compoundGravityConstant = FDLayoutConstants.DEFAULT_COMPOUND_GRAVITY_STRENGTH;
   this.gravityRangeFactor = FDLayoutConstants.DEFAULT_GRAVITY_RANGE_FACTOR;
@@ -3343,6 +3410,7 @@ FDLayout.prototype.initParameters = function () {
 
 FDLayout.prototype.calcIdealEdgeLengths = function () {
   var edge;
+  var originalIdealLength;
   var lcaDepth;
   var source;
   var target;
@@ -3353,7 +3421,7 @@ FDLayout.prototype.calcIdealEdgeLengths = function () {
   for (var i = 0; i < allEdges.length; i++) {
     edge = allEdges[i];
 
-    edge.idealLength = this.idealEdgeLength;
+    originalIdealLength = edge.idealLength;
 
     if (edge.isInterGraph) {
       source = edge.getSource();
@@ -3368,7 +3436,7 @@ FDLayout.prototype.calcIdealEdgeLengths = function () {
 
       lcaDepth = edge.getLca().getInclusionTreeDepth();
 
-      edge.idealLength += FDLayoutConstants.DEFAULT_EDGE_LENGTH * FDLayoutConstants.PER_LEVEL_IDEAL_EDGE_LENGTH_FACTOR * (source.getInclusionTreeDepth() + target.getInclusionTreeDepth() - 2 * lcaDepth);
+      edge.idealLength += originalIdealLength * FDLayoutConstants.PER_LEVEL_IDEAL_EDGE_LENGTH_FACTOR * (source.getInclusionTreeDepth() + target.getInclusionTreeDepth() - 2 * lcaDepth);
     }
   }
 };
@@ -3393,6 +3461,8 @@ FDLayout.prototype.initSpringEmbedder = function () {
 
   this.maxIterations = Math.max(this.getAllNodes().length * 5, this.maxIterations);
 
+  // Reassign this attribute by using new constant value
+  this.displacementThresholdPerNode = 3.0 * FDLayoutConstants.DEFAULT_EDGE_LENGTH / 100;
   this.totalDisplacementThreshold = this.displacementThresholdPerNode * this.getAllNodes().length;
 
   this.repulsionRange = this.calcRepulsionRange();
@@ -3491,8 +3561,10 @@ FDLayout.prototype.calcSpringForce = function (edge, idealLength) {
 
   length = edge.getLength();
 
+  if (length == 0) return;
+
   // Calculate spring forces
-  springForce = this.springConstant * (length - idealLength);
+  springForce = edge.edgeElasticity * (length - idealLength);
 
   // Project force onto x and y axes
   springForceX = springForce * (edge.lengthX / length);
@@ -3561,7 +3633,8 @@ FDLayout.prototype.calcRepulsionForce = function (nodeA, nodeB) {
       distanceSquared = distanceX * distanceX + distanceY * distanceY;
       distance = Math.sqrt(distanceSquared);
 
-      repulsionForce = this.repulsionConstant * nodeA.noOfChildren * nodeB.noOfChildren / distanceSquared;
+      // Here we use half of the nodes' repulsion values for backward compatibility
+      repulsionForce = (nodeA.nodeRepulsion / 2 + nodeB.nodeRepulsion / 2) * nodeA.noOfChildren * nodeB.noOfChildren / distanceSquared;
 
       // Project force onto x and y axes
       repulsionForceX = repulsionForce * distanceX / distance;
@@ -3769,11 +3842,14 @@ module.exports = FDLayout;
 
 
 var LEdge = __webpack_require__(1);
-var FDLayoutConstants = __webpack_require__(7);
+var FDLayoutConstants = __webpack_require__(4);
 
 function FDLayoutEdge(source, target, vEdge) {
   LEdge.call(this, source, target, vEdge);
+
+  // Ideal length and elasticity value for this edge
   this.idealLength = FDLayoutConstants.DEFAULT_EDGE_LENGTH;
+  this.edgeElasticity = FDLayoutConstants.DEFAULT_SPRING_STRENGTH;
 }
 
 FDLayoutEdge.prototype = Object.create(LEdge.prototype);
@@ -3792,10 +3868,15 @@ module.exports = FDLayoutEdge;
 
 
 var LNode = __webpack_require__(3);
+var FDLayoutConstants = __webpack_require__(4);
 
 function FDLayoutNode(gm, loc, size, vNode) {
   // alternative constructor is handled inside LNode
   LNode.call(this, gm, loc, size, vNode);
+
+  // Repulsion value of this node
+  this.nodeRepulsion = FDLayoutConstants.DEFAULT_REPULSION_STRENGTH;
+
   //Spring, repulsion and gravitational forces acting on this node
   this.springForceX = 0;
   this.springForceY = 0;
@@ -3973,6 +4054,177 @@ module.exports = HashSet;
 "use strict";
 
 
+// Some matrix (1d and 2d array) operations
+function Matrix() {}
+
+/**
+ * matrix multiplication
+ * array1, array2 and result are 2d arrays
+ */
+Matrix.multMat = function (array1, array2) {
+  var result = [];
+
+  for (var i = 0; i < array1.length; i++) {
+    result[i] = [];
+    for (var j = 0; j < array2[0].length; j++) {
+      result[i][j] = 0;
+      for (var k = 0; k < array1[0].length; k++) {
+        result[i][j] += array1[i][k] * array2[k][j];
+      }
+    }
+  }
+  return result;
+};
+
+/**
+ * matrix transpose
+ * array and result are 2d arrays
+ */
+Matrix.transpose = function (array) {
+  var result = [];
+
+  for (var i = 0; i < array[0].length; i++) {
+    result[i] = [];
+    for (var j = 0; j < array.length; j++) {
+      result[i][j] = array[j][i];
+    }
+  }
+
+  return result;
+};
+
+/**
+ * multiply array with constant
+ * array and result are 1d arrays
+ */
+Matrix.multCons = function (array, constant) {
+  var result = [];
+
+  for (var i = 0; i < array.length; i++) {
+    result[i] = array[i] * constant;
+  }
+
+  return result;
+};
+
+/**
+ * substract two arrays
+ * array1, array2 and result are 1d arrays
+ */
+Matrix.minusOp = function (array1, array2) {
+  var result = [];
+
+  for (var i = 0; i < array1.length; i++) {
+    result[i] = array1[i] - array2[i];
+  }
+
+  return result;
+};
+
+/**
+ * dot product of two arrays with same size
+ * array1 and array2 are 1d arrays
+ */
+Matrix.dotProduct = function (array1, array2) {
+  var product = 0;
+
+  for (var i = 0; i < array1.length; i++) {
+    product += array1[i] * array2[i];
+  }
+
+  return product;
+};
+
+/**
+ * magnitude of an array
+ * array is 1d array
+ */
+Matrix.mag = function (array) {
+  return Math.sqrt(this.dotProduct(array, array));
+};
+
+/**
+ * normalization of an array
+ * array and result are 1d array
+ */
+Matrix.normalize = function (array) {
+  var result = [];
+  var magnitude = this.mag(array);
+
+  for (var i = 0; i < array.length; i++) {
+    result[i] = array[i] / magnitude;
+  }
+
+  return result;
+};
+
+/**
+ * multiply an array with centering matrix
+ * array and result are 1d array
+ */
+Matrix.multGamma = function (array) {
+  var result = [];
+  var sum = 0;
+
+  for (var i = 0; i < array.length; i++) {
+    sum += array[i];
+  }
+
+  sum *= -1 / array.length;
+
+  for (var _i = 0; _i < array.length; _i++) {
+    result[_i] = sum + array[_i];
+  }
+  return result;
+};
+
+/**
+ * a special matrix multiplication
+ * result = 0.5 * C * INV * C^T * array
+ * array and result are 1d, C and INV are 2d arrays
+ */
+Matrix.multL = function (array, C, INV) {
+  var result = [];
+  var temp1 = [];
+  var temp2 = [];
+
+  // multiply by C^T
+  for (var i = 0; i < C[0].length; i++) {
+    var sum = 0;
+    for (var j = 0; j < C.length; j++) {
+      sum += -0.5 * C[j][i] * array[j];
+    }
+    temp1[i] = sum;
+  }
+  // multiply the result by INV
+  for (var _i2 = 0; _i2 < INV.length; _i2++) {
+    var _sum = 0;
+    for (var _j = 0; _j < INV.length; _j++) {
+      _sum += INV[_i2][_j] * temp1[_j];
+    }
+    temp2[_i2] = _sum;
+  }
+  // multiply the result by C
+  for (var _i3 = 0; _i3 < C.length; _i3++) {
+    var _sum2 = 0;
+    for (var _j2 = 0; _j2 < C[0].length; _j2++) {
+      _sum2 += C[_i3][_j2] * temp2[_j2];
+    }
+    result[_i3] = _sum2;
+  }
+
+  return result;
+};
+
+module.exports = Matrix;
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -4055,7 +4307,652 @@ var Quicksort = function () {
 module.exports = Quicksort;
 
 /***/ }),
-/* 25 */
+/* 26 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+// Singular Value Decomposition implementation
+function SVD() {};
+
+/* Below singular value decomposition (svd) code including hypot function is adopted from https://github.com/dragonfly-ai/JamaJS
+   Some changes are applied to make the code compatible with the fcose code and to make it independent from Jama.
+   Input matrix is changed to a 2D array instead of Jama matrix. Matrix dimensions are taken according to 2D array instead of using Jama functions.
+   An object that includes singular value components is created for return. 
+   The types of input parameters of the hypot function are removed. 
+   let is used instead of var for the variable initialization.
+*/
+/*
+                               Apache License
+                           Version 2.0, January 2004
+                        http://www.apache.org/licenses/
+
+   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+
+   1. Definitions.
+
+      "License" shall mean the terms and conditions for use, reproduction,
+      and distribution as defined by Sections 1 through 9 of this document.
+
+      "Licensor" shall mean the copyright owner or entity authorized by
+      the copyright owner that is granting the License.
+
+      "Legal Entity" shall mean the union of the acting entity and all
+      other entities that control, are controlled by, or are under common
+      control with that entity. For the purposes of this definition,
+      "control" means (i) the power, direct or indirect, to cause the
+      direction or management of such entity, whether by contract or
+      otherwise, or (ii) ownership of fifty percent (50%) or more of the
+      outstanding shares, or (iii) beneficial ownership of such entity.
+
+      "You" (or "Your") shall mean an individual or Legal Entity
+      exercising permissions granted by this License.
+
+      "Source" form shall mean the preferred form for making modifications,
+      including but not limited to software source code, documentation
+      source, and configuration files.
+
+      "Object" form shall mean any form resulting from mechanical
+      transformation or translation of a Source form, including but
+      not limited to compiled object code, generated documentation,
+      and conversions to other media types.
+
+      "Work" shall mean the work of authorship, whether in Source or
+      Object form, made available under the License, as indicated by a
+      copyright notice that is included in or attached to the work
+      (an example is provided in the Appendix below).
+
+      "Derivative Works" shall mean any work, whether in Source or Object
+      form, that is based on (or derived from) the Work and for which the
+      editorial revisions, annotations, elaborations, or other modifications
+      represent, as a whole, an original work of authorship. For the purposes
+      of this License, Derivative Works shall not include works that remain
+      separable from, or merely link (or bind by name) to the interfaces of,
+      the Work and Derivative Works thereof.
+
+      "Contribution" shall mean any work of authorship, including
+      the original version of the Work and any modifications or additions
+      to that Work or Derivative Works thereof, that is intentionally
+      submitted to Licensor for inclusion in the Work by the copyright owner
+      or by an individual or Legal Entity authorized to submit on behalf of
+      the copyright owner. For the purposes of this definition, "submitted"
+      means any form of electronic, verbal, or written communication sent
+      to the Licensor or its representatives, including but not limited to
+      communication on electronic mailing lists, source code control systems,
+      and issue tracking systems that are managed by, or on behalf of, the
+      Licensor for the purpose of discussing and improving the Work, but
+      excluding communication that is conspicuously marked or otherwise
+      designated in writing by the copyright owner as "Not a Contribution."
+
+      "Contributor" shall mean Licensor and any individual or Legal Entity
+      on behalf of whom a Contribution has been received by Licensor and
+      subsequently incorporated within the Work.
+
+   2. Grant of Copyright License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      copyright license to reproduce, prepare Derivative Works of,
+      publicly display, publicly perform, sublicense, and distribute the
+      Work and such Derivative Works in Source or Object form.
+
+   3. Grant of Patent License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      (except as stated in this section) patent license to make, have made,
+      use, offer to sell, sell, import, and otherwise transfer the Work,
+      where such license applies only to those patent claims licensable
+      by such Contributor that are necessarily infringed by their
+      Contribution(s) alone or by combination of their Contribution(s)
+      with the Work to which such Contribution(s) was submitted. If You
+      institute patent litigation against any entity (including a
+      cross-claim or counterclaim in a lawsuit) alleging that the Work
+      or a Contribution incorporated within the Work constitutes direct
+      or contributory patent infringement, then any patent licenses
+      granted to You under this License for that Work shall terminate
+      as of the date such litigation is filed.
+
+   4. Redistribution. You may reproduce and distribute copies of the
+      Work or Derivative Works thereof in any medium, with or without
+      modifications, and in Source or Object form, provided that You
+      meet the following conditions:
+
+      (a) You must give any other recipients of the Work or
+          Derivative Works a copy of this License; and
+
+      (b) You must cause any modified files to carry prominent notices
+          stating that You changed the files; and
+
+      (c) You must retain, in the Source form of any Derivative Works
+          that You distribute, all copyright, patent, trademark, and
+          attribution notices from the Source form of the Work,
+          excluding those notices that do not pertain to any part of
+          the Derivative Works; and
+
+      (d) If the Work includes a "NOTICE" text file as part of its
+          distribution, then any Derivative Works that You distribute must
+          include a readable copy of the attribution notices contained
+          within such NOTICE file, excluding those notices that do not
+          pertain to any part of the Derivative Works, in at least one
+          of the following places: within a NOTICE text file distributed
+          as part of the Derivative Works; within the Source form or
+          documentation, if provided along with the Derivative Works; or,
+          within a display generated by the Derivative Works, if and
+          wherever such third-party notices normally appear. The contents
+          of the NOTICE file are for informational purposes only and
+          do not modify the License. You may add Your own attribution
+          notices within Derivative Works that You distribute, alongside
+          or as an addendum to the NOTICE text from the Work, provided
+          that such additional attribution notices cannot be construed
+          as modifying the License.
+
+      You may add Your own copyright statement to Your modifications and
+      may provide additional or different license terms and conditions
+      for use, reproduction, or distribution of Your modifications, or
+      for any such Derivative Works as a whole, provided Your use,
+      reproduction, and distribution of the Work otherwise complies with
+      the conditions stated in this License.
+
+   5. Submission of Contributions. Unless You explicitly state otherwise,
+      any Contribution intentionally submitted for inclusion in the Work
+      by You to the Licensor shall be under the terms and conditions of
+      this License, without any additional terms or conditions.
+      Notwithstanding the above, nothing herein shall supersede or modify
+      the terms of any separate license agreement you may have executed
+      with Licensor regarding such Contributions.
+
+   6. Trademarks. This License does not grant permission to use the trade
+      names, trademarks, service marks, or product names of the Licensor,
+      except as required for reasonable and customary use in describing the
+      origin of the Work and reproducing the content of the NOTICE file.
+
+   7. Disclaimer of Warranty. Unless required by applicable law or
+      agreed to in writing, Licensor provides the Work (and each
+      Contributor provides its Contributions) on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+      implied, including, without limitation, any warranties or conditions
+      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
+      PARTICULAR PURPOSE. You are solely responsible for determining the
+      appropriateness of using or redistributing the Work and assume any
+      risks associated with Your exercise of permissions under this License.
+
+   8. Limitation of Liability. In no event and under no legal theory,
+      whether in tort (including negligence), contract, or otherwise,
+      unless required by applicable law (such as deliberate and grossly
+      negligent acts) or agreed to in writing, shall any Contributor be
+      liable to You for damages, including any direct, indirect, special,
+      incidental, or consequential damages of any character arising as a
+      result of this License or out of the use or inability to use the
+      Work (including but not limited to damages for loss of goodwill,
+      work stoppage, computer failure or malfunction, or any and all
+      other commercial damages or losses), even if such Contributor
+      has been advised of the possibility of such damages.
+
+   9. Accepting Warranty or Additional Liability. While redistributing
+      the Work or Derivative Works thereof, You may choose to offer,
+      and charge a fee for, acceptance of support, warranty, indemnity,
+      or other liability obligations and/or rights consistent with this
+      License. However, in accepting such obligations, You may act only
+      on Your own behalf and on Your sole responsibility, not on behalf
+      of any other Contributor, and only if You agree to indemnify,
+      defend, and hold each Contributor harmless for any liability
+      incurred by, or claims asserted against, such Contributor by reason
+      of your accepting any such warranty or additional liability.
+
+   END OF TERMS AND CONDITIONS
+
+   APPENDIX: How to apply the Apache License to your work.
+
+      To apply the Apache License to your work, attach the following
+      boilerplate notice, with the fields enclosed by brackets "{}"
+      replaced with your own identifying information. (Don't include
+      the brackets!)  The text should be enclosed in the appropriate
+      comment syntax for the file format. We also recommend that a
+      file or class name and description of purpose be included on the
+      same "printed page" as the copyright notice for easier
+      identification within third-party archives.
+
+   Copyright {yyyy} {name of copyright owner}
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+*/
+
+SVD.svd = function (A) {
+  this.U = null;
+  this.V = null;
+  this.s = null;
+  this.m = 0;
+  this.n = 0;
+  this.m = A.length;
+  this.n = A[0].length;
+  var nu = Math.min(this.m, this.n);
+  this.s = function (s) {
+    var a = [];
+    while (s-- > 0) {
+      a.push(0);
+    }return a;
+  }(Math.min(this.m + 1, this.n));
+  this.U = function (dims) {
+    var allocate = function allocate(dims) {
+      if (dims.length == 0) {
+        return 0;
+      } else {
+        var array = [];
+        for (var i = 0; i < dims[0]; i++) {
+          array.push(allocate(dims.slice(1)));
+        }
+        return array;
+      }
+    };
+    return allocate(dims);
+  }([this.m, nu]);
+  this.V = function (dims) {
+    var allocate = function allocate(dims) {
+      if (dims.length == 0) {
+        return 0;
+      } else {
+        var array = [];
+        for (var i = 0; i < dims[0]; i++) {
+          array.push(allocate(dims.slice(1)));
+        }
+        return array;
+      }
+    };
+    return allocate(dims);
+  }([this.n, this.n]);
+  var e = function (s) {
+    var a = [];
+    while (s-- > 0) {
+      a.push(0);
+    }return a;
+  }(this.n);
+  var work = function (s) {
+    var a = [];
+    while (s-- > 0) {
+      a.push(0);
+    }return a;
+  }(this.m);
+  var wantu = true;
+  var wantv = true;
+  var nct = Math.min(this.m - 1, this.n);
+  var nrt = Math.max(0, Math.min(this.n - 2, this.m));
+  for (var k = 0; k < Math.max(nct, nrt); k++) {
+    if (k < nct) {
+      this.s[k] = 0;
+      for (var i = k; i < this.m; i++) {
+        this.s[k] = SVD.hypot(this.s[k], A[i][k]);
+      }
+      ;
+      if (this.s[k] !== 0.0) {
+        if (A[k][k] < 0.0) {
+          this.s[k] = -this.s[k];
+        }
+        for (var _i = k; _i < this.m; _i++) {
+          A[_i][k] /= this.s[k];
+        }
+        ;
+        A[k][k] += 1.0;
+      }
+      this.s[k] = -this.s[k];
+    }
+    for (var j = k + 1; j < this.n; j++) {
+      if (function (lhs, rhs) {
+        return lhs && rhs;
+      }(k < nct, this.s[k] !== 0.0)) {
+        var t = 0;
+        for (var _i2 = k; _i2 < this.m; _i2++) {
+          t += A[_i2][k] * A[_i2][j];
+        }
+        ;
+        t = -t / A[k][k];
+        for (var _i3 = k; _i3 < this.m; _i3++) {
+          A[_i3][j] += t * A[_i3][k];
+        }
+        ;
+      }
+      e[j] = A[k][j];
+    }
+    ;
+    if (function (lhs, rhs) {
+      return lhs && rhs;
+    }(wantu, k < nct)) {
+      for (var _i4 = k; _i4 < this.m; _i4++) {
+        this.U[_i4][k] = A[_i4][k];
+      }
+      ;
+    }
+    if (k < nrt) {
+      e[k] = 0;
+      for (var _i5 = k + 1; _i5 < this.n; _i5++) {
+        e[k] = SVD.hypot(e[k], e[_i5]);
+      }
+      ;
+      if (e[k] !== 0.0) {
+        if (e[k + 1] < 0.0) {
+          e[k] = -e[k];
+        }
+        for (var _i6 = k + 1; _i6 < this.n; _i6++) {
+          e[_i6] /= e[k];
+        }
+        ;
+        e[k + 1] += 1.0;
+      }
+      e[k] = -e[k];
+      if (function (lhs, rhs) {
+        return lhs && rhs;
+      }(k + 1 < this.m, e[k] !== 0.0)) {
+        for (var _i7 = k + 1; _i7 < this.m; _i7++) {
+          work[_i7] = 0.0;
+        }
+        ;
+        for (var _j = k + 1; _j < this.n; _j++) {
+          for (var _i8 = k + 1; _i8 < this.m; _i8++) {
+            work[_i8] += e[_j] * A[_i8][_j];
+          }
+          ;
+        }
+        ;
+        for (var _j2 = k + 1; _j2 < this.n; _j2++) {
+          var _t = -e[_j2] / e[k + 1];
+          for (var _i9 = k + 1; _i9 < this.m; _i9++) {
+            A[_i9][_j2] += _t * work[_i9];
+          }
+          ;
+        }
+        ;
+      }
+      if (wantv) {
+        for (var _i10 = k + 1; _i10 < this.n; _i10++) {
+          this.V[_i10][k] = e[_i10];
+        };
+      }
+    }
+  };
+  var p = Math.min(this.n, this.m + 1);
+  if (nct < this.n) {
+    this.s[nct] = A[nct][nct];
+  }
+  if (this.m < p) {
+    this.s[p - 1] = 0.0;
+  }
+  if (nrt + 1 < p) {
+    e[nrt] = A[nrt][p - 1];
+  }
+  e[p - 1] = 0.0;
+  if (wantu) {
+    for (var _j3 = nct; _j3 < nu; _j3++) {
+      for (var _i11 = 0; _i11 < this.m; _i11++) {
+        this.U[_i11][_j3] = 0.0;
+      }
+      ;
+      this.U[_j3][_j3] = 1.0;
+    };
+    for (var _k = nct - 1; _k >= 0; _k--) {
+      if (this.s[_k] !== 0.0) {
+        for (var _j4 = _k + 1; _j4 < nu; _j4++) {
+          var _t2 = 0;
+          for (var _i12 = _k; _i12 < this.m; _i12++) {
+            _t2 += this.U[_i12][_k] * this.U[_i12][_j4];
+          };
+          _t2 = -_t2 / this.U[_k][_k];
+          for (var _i13 = _k; _i13 < this.m; _i13++) {
+            this.U[_i13][_j4] += _t2 * this.U[_i13][_k];
+          };
+        };
+        for (var _i14 = _k; _i14 < this.m; _i14++) {
+          this.U[_i14][_k] = -this.U[_i14][_k];
+        };
+        this.U[_k][_k] = 1.0 + this.U[_k][_k];
+        for (var _i15 = 0; _i15 < _k - 1; _i15++) {
+          this.U[_i15][_k] = 0.0;
+        };
+      } else {
+        for (var _i16 = 0; _i16 < this.m; _i16++) {
+          this.U[_i16][_k] = 0.0;
+        };
+        this.U[_k][_k] = 1.0;
+      }
+    };
+  }
+  if (wantv) {
+    for (var _k2 = this.n - 1; _k2 >= 0; _k2--) {
+      if (function (lhs, rhs) {
+        return lhs && rhs;
+      }(_k2 < nrt, e[_k2] !== 0.0)) {
+        for (var _j5 = _k2 + 1; _j5 < nu; _j5++) {
+          var _t3 = 0;
+          for (var _i17 = _k2 + 1; _i17 < this.n; _i17++) {
+            _t3 += this.V[_i17][_k2] * this.V[_i17][_j5];
+          };
+          _t3 = -_t3 / this.V[_k2 + 1][_k2];
+          for (var _i18 = _k2 + 1; _i18 < this.n; _i18++) {
+            this.V[_i18][_j5] += _t3 * this.V[_i18][_k2];
+          };
+        };
+      }
+      for (var _i19 = 0; _i19 < this.n; _i19++) {
+        this.V[_i19][_k2] = 0.0;
+      };
+      this.V[_k2][_k2] = 1.0;
+    };
+  }
+  var pp = p - 1;
+  var iter = 0;
+  var eps = Math.pow(2.0, -52.0);
+  var tiny = Math.pow(2.0, -966.0);
+  while (p > 0) {
+    var _k3 = void 0;
+    var kase = void 0;
+    for (_k3 = p - 2; _k3 >= -1; _k3--) {
+      if (_k3 === -1) {
+        break;
+      }
+      if (Math.abs(e[_k3]) <= tiny + eps * (Math.abs(this.s[_k3]) + Math.abs(this.s[_k3 + 1]))) {
+        e[_k3] = 0.0;
+        break;
+      }
+    };
+    if (_k3 === p - 2) {
+      kase = 4;
+    } else {
+      var ks = void 0;
+      for (ks = p - 1; ks >= _k3; ks--) {
+        if (ks === _k3) {
+          break;
+        }
+        var _t4 = (ks !== p ? Math.abs(e[ks]) : 0.0) + (ks !== _k3 + 1 ? Math.abs(e[ks - 1]) : 0.0);
+        if (Math.abs(this.s[ks]) <= tiny + eps * _t4) {
+          this.s[ks] = 0.0;
+          break;
+        }
+      };
+      if (ks === _k3) {
+        kase = 3;
+      } else if (ks === p - 1) {
+        kase = 1;
+      } else {
+        kase = 2;
+        _k3 = ks;
+      }
+    }
+    _k3++;
+    switch (kase) {
+      case 1:
+        {
+          var f = e[p - 2];
+          e[p - 2] = 0.0;
+          for (var _j6 = p - 2; _j6 >= _k3; _j6--) {
+            var _t5 = SVD.hypot(this.s[_j6], f);
+            var cs = this.s[_j6] / _t5;
+            var sn = f / _t5;
+            this.s[_j6] = _t5;
+            if (_j6 !== _k3) {
+              f = -sn * e[_j6 - 1];
+              e[_j6 - 1] = cs * e[_j6 - 1];
+            }
+            if (wantv) {
+              for (var _i20 = 0; _i20 < this.n; _i20++) {
+                _t5 = cs * this.V[_i20][_j6] + sn * this.V[_i20][p - 1];
+                this.V[_i20][p - 1] = -sn * this.V[_i20][_j6] + cs * this.V[_i20][p - 1];
+                this.V[_i20][_j6] = _t5;
+              };
+            }
+          };
+        };
+        break;
+      case 2:
+        {
+          var _f = e[_k3 - 1];
+          e[_k3 - 1] = 0.0;
+          for (var _j7 = _k3; _j7 < p; _j7++) {
+            var _t6 = SVD.hypot(this.s[_j7], _f);
+            var _cs = this.s[_j7] / _t6;
+            var _sn = _f / _t6;
+            this.s[_j7] = _t6;
+            _f = -_sn * e[_j7];
+            e[_j7] = _cs * e[_j7];
+            if (wantu) {
+              for (var _i21 = 0; _i21 < this.m; _i21++) {
+                _t6 = _cs * this.U[_i21][_j7] + _sn * this.U[_i21][_k3 - 1];
+                this.U[_i21][_k3 - 1] = -_sn * this.U[_i21][_j7] + _cs * this.U[_i21][_k3 - 1];
+                this.U[_i21][_j7] = _t6;
+              };
+            }
+          };
+        };
+        break;
+      case 3:
+        {
+          var scale = Math.max(Math.max(Math.max(Math.max(Math.abs(this.s[p - 1]), Math.abs(this.s[p - 2])), Math.abs(e[p - 2])), Math.abs(this.s[_k3])), Math.abs(e[_k3]));
+          var sp = this.s[p - 1] / scale;
+          var spm1 = this.s[p - 2] / scale;
+          var epm1 = e[p - 2] / scale;
+          var sk = this.s[_k3] / scale;
+          var ek = e[_k3] / scale;
+          var b = ((spm1 + sp) * (spm1 - sp) + epm1 * epm1) / 2.0;
+          var c = sp * epm1 * (sp * epm1);
+          var shift = 0.0;
+          if (function (lhs, rhs) {
+            return lhs || rhs;
+          }(b !== 0.0, c !== 0.0)) {
+            shift = Math.sqrt(b * b + c);
+            if (b < 0.0) {
+              shift = -shift;
+            }
+            shift = c / (b + shift);
+          }
+          var _f2 = (sk + sp) * (sk - sp) + shift;
+          var g = sk * ek;
+          for (var _j8 = _k3; _j8 < p - 1; _j8++) {
+            var _t7 = SVD.hypot(_f2, g);
+            var _cs2 = _f2 / _t7;
+            var _sn2 = g / _t7;
+            if (_j8 !== _k3) {
+              e[_j8 - 1] = _t7;
+            }
+            _f2 = _cs2 * this.s[_j8] + _sn2 * e[_j8];
+            e[_j8] = _cs2 * e[_j8] - _sn2 * this.s[_j8];
+            g = _sn2 * this.s[_j8 + 1];
+            this.s[_j8 + 1] = _cs2 * this.s[_j8 + 1];
+            if (wantv) {
+              for (var _i22 = 0; _i22 < this.n; _i22++) {
+                _t7 = _cs2 * this.V[_i22][_j8] + _sn2 * this.V[_i22][_j8 + 1];
+                this.V[_i22][_j8 + 1] = -_sn2 * this.V[_i22][_j8] + _cs2 * this.V[_i22][_j8 + 1];
+                this.V[_i22][_j8] = _t7;
+              };
+            }
+            _t7 = SVD.hypot(_f2, g);
+            _cs2 = _f2 / _t7;
+            _sn2 = g / _t7;
+            this.s[_j8] = _t7;
+            _f2 = _cs2 * e[_j8] + _sn2 * this.s[_j8 + 1];
+            this.s[_j8 + 1] = -_sn2 * e[_j8] + _cs2 * this.s[_j8 + 1];
+            g = _sn2 * e[_j8 + 1];
+            e[_j8 + 1] = _cs2 * e[_j8 + 1];
+            if (wantu && _j8 < this.m - 1) {
+              for (var _i23 = 0; _i23 < this.m; _i23++) {
+                _t7 = _cs2 * this.U[_i23][_j8] + _sn2 * this.U[_i23][_j8 + 1];
+                this.U[_i23][_j8 + 1] = -_sn2 * this.U[_i23][_j8] + _cs2 * this.U[_i23][_j8 + 1];
+                this.U[_i23][_j8] = _t7;
+              };
+            }
+          };
+          e[p - 2] = _f2;
+          iter = iter + 1;
+        };
+        break;
+      case 4:
+        {
+          if (this.s[_k3] <= 0.0) {
+            this.s[_k3] = this.s[_k3] < 0.0 ? -this.s[_k3] : 0.0;
+            if (wantv) {
+              for (var _i24 = 0; _i24 <= pp; _i24++) {
+                this.V[_i24][_k3] = -this.V[_i24][_k3];
+              };
+            }
+          }
+          while (_k3 < pp) {
+            if (this.s[_k3] >= this.s[_k3 + 1]) {
+              break;
+            }
+            var _t8 = this.s[_k3];
+            this.s[_k3] = this.s[_k3 + 1];
+            this.s[_k3 + 1] = _t8;
+            if (wantv && _k3 < this.n - 1) {
+              for (var _i25 = 0; _i25 < this.n; _i25++) {
+                _t8 = this.V[_i25][_k3 + 1];
+                this.V[_i25][_k3 + 1] = this.V[_i25][_k3];
+                this.V[_i25][_k3] = _t8;
+              };
+            }
+            if (wantu && _k3 < this.m - 1) {
+              for (var _i26 = 0; _i26 < this.m; _i26++) {
+                _t8 = this.U[_i26][_k3 + 1];
+                this.U[_i26][_k3 + 1] = this.U[_i26][_k3];
+                this.U[_i26][_k3] = _t8;
+              };
+            }
+            _k3++;
+          };
+          iter = 0;
+          p--;
+        };
+        break;
+    }
+  };
+  var result = { U: this.U, V: this.V, S: this.s };
+  return result;
+};
+
+// sqrt(a^2 + b^2) without under/overflow.
+SVD.hypot = function (a, b) {
+  var r = void 0;
+  if (Math.abs(a) > Math.abs(b)) {
+    r = b / a;
+    r = Math.abs(a) * Math.sqrt(1 + r * r);
+  } else if (b != 0) {
+    r = a / b;
+    r = Math.abs(b) * Math.sqrt(1 + r * r);
+  } else {
+    r = 0.0;
+  }
+  return r;
+};
+
+module.exports = SVD;
+
+/***/ }),
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4245,7 +5142,7 @@ var NeedlemanWunsch = function () {
 module.exports = NeedlemanWunsch;
 
 /***/ }),
-/* 26 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4256,7 +5153,7 @@ var layoutBase = function layoutBase() {
 };
 
 layoutBase.FDLayout = __webpack_require__(18);
-layoutBase.FDLayoutConstants = __webpack_require__(7);
+layoutBase.FDLayoutConstants = __webpack_require__(4);
 layoutBase.FDLayoutEdge = __webpack_require__(19);
 layoutBase.FDLayoutNode = __webpack_require__(20);
 layoutBase.DimensionD = __webpack_require__(21);
@@ -4266,26 +5163,28 @@ layoutBase.IGeometry = __webpack_require__(8);
 layoutBase.IMath = __webpack_require__(9);
 layoutBase.Integer = __webpack_require__(10);
 layoutBase.Point = __webpack_require__(12);
-layoutBase.PointD = __webpack_require__(4);
+layoutBase.PointD = __webpack_require__(5);
 layoutBase.RandomSeed = __webpack_require__(16);
 layoutBase.RectangleD = __webpack_require__(13);
 layoutBase.Transform = __webpack_require__(17);
 layoutBase.UniqueIDGeneretor = __webpack_require__(14);
-layoutBase.Quicksort = __webpack_require__(24);
+layoutBase.Quicksort = __webpack_require__(25);
 layoutBase.LinkedList = __webpack_require__(11);
 layoutBase.LGraphObject = __webpack_require__(2);
-layoutBase.LGraph = __webpack_require__(5);
+layoutBase.LGraph = __webpack_require__(6);
 layoutBase.LEdge = __webpack_require__(1);
-layoutBase.LGraphManager = __webpack_require__(6);
+layoutBase.LGraphManager = __webpack_require__(7);
 layoutBase.LNode = __webpack_require__(3);
 layoutBase.Layout = __webpack_require__(15);
 layoutBase.LayoutConstants = __webpack_require__(0);
-layoutBase.NeedlemanWunsch = __webpack_require__(25);
+layoutBase.NeedlemanWunsch = __webpack_require__(27);
+layoutBase.Matrix = __webpack_require__(24);
+layoutBase.SVD = __webpack_require__(26);
 
 module.exports = layoutBase;
 
 /***/ }),
-/* 27 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

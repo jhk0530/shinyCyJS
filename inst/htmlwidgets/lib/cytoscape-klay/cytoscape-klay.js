@@ -168,11 +168,11 @@ var getPos = function getPos(ele) {
     y: k.y
   };
 
-  if (parent.nonempty()) {
+  while (parent.nonempty()) {
     var kp = parent.scratch('klay');
-
     p.x += kp.x;
     p.y += kp.y;
+    parent = parent.parent();
   }
 
   return p;
@@ -208,13 +208,14 @@ var makeEdge = function makeEdge(edge, options) {
     _cyEle: edge,
     id: edge.id(),
     source: edge.data('source'),
-    target: edge.data('target')
+    target: edge.data('target'),
+    properties: {}
   };
 
   var priority = options.priority(edge);
 
   if (priority != null) {
-    k.priority = priority;
+    k.properties.priority = priority;
   }
 
   edge.scratch('klay', k);

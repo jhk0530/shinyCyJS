@@ -52,6 +52,10 @@ SOFTWARE.
     }
   };
 
+  var fixDomContainer = function(ele) {
+    return ele && ( ele[0] === window ) ? undefined : ele;
+  };
+
   var throttle = function(func, wait, options) {
     var leading = true,
         trailing = true;
@@ -196,8 +200,8 @@ SOFTWARE.
 
       // qtip should be positioned relative to cy dom container
       opts.position = opts.position || {};
-      opts.position.container = opts.position.container || $( document.body );
-      opts.position.viewport = opts.position.viewport || $( document.body );
+      opts.position.container = fixDomContainer(opts.position.container) || $( document.body );
+      opts.position.viewport = fixDomContainer(opts.position.viewport) || $( document.body );
       opts.position.target = [0, 0];
       opts.position.my = opts.position.my || 'top center';
       opts.position.at = opts.position.at || 'bottom center';
@@ -289,7 +293,8 @@ SOFTWARE.
       var container = cy.container();
 
       if( passedOpts === 'api' ){
-        return this.scratch().qtip.api;
+        var qtip = this.scratch().qtip;
+        return qtip ? qtip.api : null;
       }
 
       eles.each(function(ele, i){
@@ -342,7 +347,8 @@ SOFTWARE.
       var container = cy.container();
 
       if( passedOpts === 'api' ){
-        return this.scratch().qtip.api;
+        var qtip = this.scratch().qtip;
+        return qtip ? qtip.api : null;
       }
 
       var scratch = cy.scratch();

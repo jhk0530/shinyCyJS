@@ -375,8 +375,8 @@ ColaLayout.prototype.run = function () {
     var dimensions = node.layoutDimensions(options);
 
     var struct = node.scratch().cola = {
-      x: options.randomize || pos.x === undefined ? Math.round(Math.random() * bb.w) : pos.x,
-      y: options.randomize || pos.y === undefined ? Math.round(Math.random() * bb.h) : pos.y,
+      x: options.randomize && !node.locked() || pos.x === undefined ? Math.round(Math.random() * bb.w) : pos.x,
+      y: options.randomize && !node.locked() || pos.y === undefined ? Math.round(Math.random() * bb.h) : pos.y,
       width: dimensions.w + 2 * padding,
       height: dimensions.h + 2 * padding,
       index: i,
@@ -392,46 +392,45 @@ ColaLayout.prototype.run = function () {
   if (options.alignment) {
     // then set alignment constraints
 
-    var offsetsX = [];
-    var offsetsY = [];
-
-    nonparentNodes.forEach(function (node) {
-      var align = getOptVal(options.alignment, node);
-      var scrCola = node.scratch().cola;
-      var index = scrCola.index;
-
-      if (!align) {
-        return;
-      }
-
-      if (align.x != null) {
-        offsetsX.push({
-          node: index,
-          offset: align.x
+    if (options.alignment.vertical) {
+      var verticalAlignments = options.alignment.vertical;
+      verticalAlignments.forEach(function (alignment) {
+        var offsetsX = [];
+        alignment.forEach(function (nodeData) {
+          var node = nodeData.node;
+          var scrCola = node.scratch().cola;
+          var index = scrCola.index;
+          offsetsX.push({
+            node: index,
+            offset: nodeData.offset ? nodeData.offset : 0
+          });
         });
-      }
-
-      if (align.y != null) {
-        offsetsY.push({
-          node: index,
-          offset: align.y
+        constraints.push({
+          type: 'alignment',
+          axis: 'x',
+          offsets: offsetsX
         });
-      }
-    });
-
-    if (offsetsX.length > 0) {
-      constraints.push({
-        type: 'alignment',
-        axis: 'x',
-        offsets: offsetsX
       });
     }
 
-    if (offsetsY.length > 0) {
-      constraints.push({
-        type: 'alignment',
-        axis: 'y',
-        offsets: offsetsY
+    if (options.alignment.horizontal) {
+      var horizontalAlignments = options.alignment.horizontal;
+      horizontalAlignments.forEach(function (alignment) {
+        var offsetsY = [];
+        alignment.forEach(function (nodeData) {
+          var node = nodeData.node;
+          var scrCola = node.scratch().cola;
+          var index = scrCola.index;
+          offsetsY.push({
+            node: index,
+            offset: nodeData.offset ? nodeData.offset : 0
+          });
+        });
+        constraints.push({
+          type: 'alignment',
+          axis: 'y',
+          offsets: offsetsY
+        });
       });
     }
   }
@@ -574,7 +573,9 @@ ColaLayout.prototype.run = function () {
 
   layout.trigger({ type: 'layoutstart', layout: layout });
 
-  adaptor.avoidOverlaps(options.avoidOverlap).handleDisconnected(options.handleDisconnected).start(options.unconstrIter, options.userConstIter, options.allConstIter);
+  adaptor.avoidOverlaps(options.avoidOverlap).handleDisconnected(options.handleDisconnected).start(options.unconstrIter, options.userConstIter, options.allConstIter, undefined, // gridSnapIterations = 0
+  undefined, // keepRunning = true
+  options.centerGraph);
 
   if (!options.infinite) {
     setTimeout(function () {
@@ -657,6 +658,8 @@ var defaults = {
   flow: undefined, // use DAG/tree flow layout if specified, e.g. { axis: 'y', minSeparation: 30 }
   alignment: undefined, // relative alignment constraints on nodes, e.g. function( node ){ return { x: 0, y: 1 } }
   gapInequalities: undefined, // list of inequality constraints for the gap between the nodes, e.g. [{"axis":"y", "left":node1, "right":node2, "gap":25}]
+  centerGraph: true, // adjusts the node positions initially to center the graph (pass false if you want to start the layout from the current position)
+
 
   // different methods of specifying edge length
   // each can be a constant numerical value or a function like `function( edge ){ return 2; }`

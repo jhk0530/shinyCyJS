@@ -1,31 +1,36 @@
 dependencies:
  - name: cytoscape
-   version: 3.13.0
-   src: htmlwidgets/lib/cytoscape-3.13.0
+   version: 3.26.0
+   src: htmlwidgets/lib/cytoscape
    script: cytoscape.min.js
 
  - name: jquery
-   version: 3.4.1
-   src: htmlwidgets/lib/jquery-3.4.1
-   script: jquery-3.4.1.min.js
+   version: 3.7.1
+   src: htmlwidgets/lib/jquery
+   script: jquery-3.7.1.min.js
 
  - name: cola
-   version: 2.3.0
+   version: 2.5.1
    src: htmlwidgets/lib/cytoscape-cola
    script:
     - cola.min.js
     - cytoscape-cola.js
 
  - name: klay
-   version: 3.1.2
+   version: 3.1.4
    src: htmlwidgets/lib/cytoscape-klay
    script:
     - klay.js
     - cytoscape-klay.js
 
+ - name: cose-base
+   version: 1.0.0
+   src: htmlwidgets/lib/cose-base
+   script: cose-base.js
+
  - name: qtip
    version: 3.0.3
-   src: "htmlwidgets/lib/qtip"
+   src: htmlwidgets/lib/qtip
    script: jquery.qtip.min.js
    stylesheet: jquery.qtip.min.css
 
@@ -35,12 +40,10 @@ dependencies:
    script: cytoscape-qtip.js
 
  - name: cytoscape-fcose
-   version: 1.1.0
+   version: 2.2.0
    src: htmlwidgets/lib/cytoscape-fcose
    script :
-    - numeric-1.2.6.js
     - layout-base.js
-    - cose-base.js
     - cytoscape-fcose.js
 
  - name: cytoscape-spread
@@ -51,19 +54,21 @@ dependencies:
     - cytoscape-spread.js
 
  - name: cytoscape-dagre
-   version: 2.2.2
+   version: 2.5.0
    src : htmlwidgets/lib/cytoscape-dagre
    script :
     - dagre.min.js
     - cytoscape-dagre.js
 
  - name: cytoscape-svg
-   version: 0.3.1
+   version: 0.4.0
    src: htmlwidgets/lib/cytoscape-svg
-   script : cytoscape-svg.js
+   script :
+    - cytoscape-svg.js
+    - canvas2svg.js
 
  - name: file-saver
-   version: 2.0.5
+   version: 2.0.4
    src: htmlwidgets/lib/file-saver
    script: FileSaver.min.js
 
@@ -72,7 +77,7 @@ dependencies:
    src: htmlwidgets/lib/cytoscape-panzoom
    script: cytoscape-panzoom.js
    stylesheet: cytoscape.js-panzoom.css
-     
+
  - name: cytoscape-cose-bilkent
    version: 4.1.0
    src: htmlwidgets/lib/cytoscape-cose-bilkent
@@ -82,3 +87,10 @@ dependencies:
    version: 1.0.0
    src: htmlwidgets/lib/cose-base
    script: cose-base.js
+
+ - name: cytoscape-popper
+   version: 2.0.0
+   src: htmlwidgets/lib/cytoscape-popper
+   script :
+    - popper.min.js
+    - cytoscape-popper.js

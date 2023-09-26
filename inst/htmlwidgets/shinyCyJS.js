@@ -152,61 +152,62 @@ HTMLWidgets.widget({
 			cy.layout(Layout).run()
 
 			// set Qtip
-
 			cy.ready(function(){
-                cy.nodes().qtip({
-                    content: function() {
-                      console.log("node", this)
-                      return this.data('tooltip')
-                    },
-                    position: {
-                      	my: 'top center',
+
+        cy.nodes().qtip({ // node qtip
+           content: function() {
+              console.log("node", this)
+              return this.data('tooltip')
+            },
+          position: {
+          	my: 'top center',
 						at: 'bottom center'
-                    },
-                    style: {
-                      classes: 'qtip-bootstrap',
-                      tip: {
-                        width: 16,
-                        height: 8
-                      }
-                    },
-                	hide: {
+          },
+          style: {
+            classes: 'qtip-bootstrap',
+            tip: {
+              width: 16,
+              height: 8
+            }
+          },
+        	hide: {
 						event: 'unfocus',
-						inactive: 20000
+						inactive: 1000
 					},
-                    show: {
-                      event: 'click',
-                      solo: true
-                    }
-                  });
+          show: {
+            event: 'click',
+            solo: true
+          }
+        });
 
-				cy.edges().qtip({
-                    content: function() {
-                      console.log("edge", this)
-                      return this.data('tooltip')
-                    },
-                    position: {
-                      	my: 'top center',
-						at: 'center center'
-                    },
-                    style: {
-                      classes: 'qtip-bootstrap',
-                      tip: {
-                        width: 16,
-                        height: 8
-                      }
-                    },
-                	hide: {
+			  cy.edges().qtip({ // edge qtip
+          content: function() {
+            console.log("edge", this)
+            return this.data('tooltip')
+          },
+          position: {
+          	my: 'top center',
+          	at: 'center center'
+          },
+          style: {
+            classes: 'qtip-bootstrap',
+            tip: {
+              width: 16,
+              height: 8
+            }
+          },
+        	hide: {
 						event: 'unfocus',
-						inactive: 20000
+						inactive: 1000
 					},
-                    show: {
-                      event: 'click',
-                      solo: true
-                    }
-                  });
+          show: {
+            event: 'click',
+            solo: true
+          }
+        });
 
-			});
+		});
+
 
 		},
 		resize : function(width, height){
