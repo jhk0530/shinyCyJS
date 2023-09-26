@@ -18,16 +18,16 @@ List typed multiple 'Node' or 'Edge' elements. It consisted with repeated buildN
 call buildNode or buildEdge function, note that only one function can be called
 }
 \examples{
-nodes = buildElems( # will generate 5 nodes
- elems = data.frame(
-   id = paste0('node',1:5),
-   bgColor = "#FFFFFF",
-   borderColor = "#48DBFB",
-   borderWidth = 2,
-   fontSize = 10,
-   width = 60, height = 20, opacity = 1, stringsAsFactors = FALSE
- ), type = "Node")
-
+nodes <- buildElems( # will generate 5 nodes
+  elems = data.frame(
+    id = paste0("node", 1:5),
+    bgColor = "#FFFFFF",
+    borderColor = "#48DBFB",
+    borderWidth = 2,
+    fontSize = 10,
+    width = 60, height = 20, opacity = 1, stringsAsFactors = FALSE
+  ), type = "Node"
+)
 
 }
 \seealso{

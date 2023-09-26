@@ -33,7 +33,7 @@ buildIOptions(
 
 \item{boxSelectionEnabled}{Whether box selection by drag available [logical]}
 
-\item{selectionType}{Indicate selection by user input is addtive or single(default). ['single' or 'addtivie']}
+\item{selectionType}{Indicate selection by user input is additive or single(default). ['single' or 'additive']}
 
 \item{autolock}{Whether nodes should be locked (not draggable at all) by default (if true, overrides individual node state). [logical]}
 
@@ -51,11 +51,12 @@ build Interact Option
 undescribed parameter will set as default. note that touchTapThreshold & desktopTapThreshold were not used.
 }
 \examples{
-iopt = buildIOptions(
-minZoom = 0.001, maxZoom = 3, zoomingEnabled = TRUE,
-userZoomingEnabled = FALSE, panningEnabled = TRUE, userPanningEnabled = TRUE,
-boxSelectionEnabled = FALSE, selectionType = 'single', autolock = FALSE,
-autoungrabify = TRUE, autounselectify = FALSE)
+iopt <- buildIOptions(
+  minZoom = 0.001, maxZoom = 3, zoomingEnabled = TRUE,
+  userZoomingEnabled = FALSE, panningEnabled = TRUE, userPanningEnabled = TRUE,
+  boxSelectionEnabled = FALSE, selectionType = "single", autolock = FALSE,
+  autoungrabify = TRUE, autounselectify = FALSE
+)
 
 }
 \seealso{

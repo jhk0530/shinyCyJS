@@ -42,7 +42,7 @@ build Rendering Option
 undescribed parameter will set as default.
 }
 \examples{
-ropt = buildROptions(wheelSensitivity = 0.5)
+ropt <- buildROptions(wheelSensitivity = 0.5)
 
 }
 \seealso{

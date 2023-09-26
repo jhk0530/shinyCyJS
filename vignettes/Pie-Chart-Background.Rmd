@@ -19,12 +19,12 @@ library(shinyCyJS)
 ```
 
 ```{r}
-pieNode <- buildNode(id = 'pieNode', width = 100, height = 100, 
-    pieSize = c(40,40,20,0,0,0,0,0,0,0,0,0,0,0,0,0), 
-    pieColor = c('#e84118','#00a8ff','#4cd137',rep('#f5f6fa',13)),
-    labelColor = '#2f3640'
-  )
+pieNode <- buildNode(
+  id = "pieNode", width = 100, height = 100,
+  pieSize = c(40, 40, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+  pieColor = c("#e84118", "#00a8ff", "#4cd137", rep("#f5f6fa", 13)),
+  labelColor = "#2f3640"
+)
 
 shinyCyJS(pieNode)
-
 ```

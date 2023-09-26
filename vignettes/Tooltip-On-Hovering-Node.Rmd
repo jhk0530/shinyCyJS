@@ -16,10 +16,8 @@ library(shinyCyJS)
 ```
 
 ```{r}
-
-NodeA <- buildNode('A',tooltip = 'Tooltip!')
-NodeB <- buildNode('B')
-Nodes <- list(NodeA,NodeB)
+NodeA <- buildNode("A", tooltip = "Tooltip!")
+NodeB <- buildNode("B")
+Nodes <- list(NodeA, NodeB)
 shinyCyJS(Nodes)
-
 ```

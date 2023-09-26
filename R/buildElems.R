@@ -10,19 +10,19 @@
 #' @export
 #'
 #' @examples
-#' nodes = buildElems( # will generate 5 nodes
-#'  elems = data.frame(
-#'    id = paste0('node',1:5),
-#'    bgColor = "#FFFFFF",
-#'    borderColor = "#48DBFB",
-#'    borderWidth = 2,
-#'    fontSize = 10,
-#'    width = 60, height = 20, opacity = 1, stringsAsFactors = FALSE
-#'  ), type = "Node")
-#'
+#' nodes <- buildElems( # will generate 5 nodes
+#'   elems = data.frame(
+#'     id = paste0("node", 1:5),
+#'     bgColor = "#FFFFFF",
+#'     borderColor = "#48DBFB",
+#'     borderWidth = 2,
+#'     fontSize = 10,
+#'     width = 60, height = 20, opacity = 1, stringsAsFactors = FALSE
+#'   ), type = "Node"
+#' )
 #'
 buildElems <- function(elems, type) {
   func <- paste0("build", type)
-  res <- lapply(seq_len(nrow(elems)), function(i) do.call(func, as.list(elems[i,])))
+  res <- lapply(seq_len(nrow(elems)), function(i) do.call(func, as.list(elems[i, ])))
   return(res)
 }

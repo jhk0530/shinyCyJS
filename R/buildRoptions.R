@@ -16,7 +16,7 @@
 #' @return List typed Rendering Option for Cytoscape.js canvas object.
 #'
 #' @examples
-#' ropt = buildROptions(wheelSensitivity = 0.5)
+#' ropt <- buildROptions(wheelSensitivity = 0.5)
 #'
 #' @seealso https://js.cytoscape.org/#core/initialisation
 #'
@@ -25,21 +25,19 @@
 #'
 
 buildROptions <- function(
-  headless = FALSE, styleEnabled = TRUE, hideEdgesOnViewport = FALSE,
-  textureOnViewport = FALSE, motionBlur = FALSE, motionBlurOpacity = 0.2, wheelSensitivity = 1,
-  pixelRatio = 'auto'
-){
+    headless = FALSE, styleEnabled = TRUE, hideEdgesOnViewport = FALSE,
+    textureOnViewport = FALSE, motionBlur = FALSE, motionBlurOpacity = 0.2, wheelSensitivity = 1,
+    pixelRatio = "auto") {
+  if (!is.numeric(motionBlurOpacity)) stop("motionBlurOpacity must be numeric")
+  if (!is.numeric(wheelSensitivity)) stop("wheelSensitivity must be numeric")
+  if (motionBlurOpacity > 1 | motionBlurOpacity < 0) stop("motionBlurOpacity must be in 0 ~ 1")
+  if (wheelSensitivity > 1 | wheelSensitivity < 0) stop("wheelSensitivity must be in 0 ~ 1")
 
-  if(!is.numeric(motionBlurOpacity)) stop('motionBlurOpacity must be numeric')
-  if(!is.numeric(wheelSensitivity)) stop('wheelSensitivity must be numeric')
-  if(motionBlurOpacity > 1 | motionBlurOpacity < 0) stop('motionBlurOpacity must be in 0 ~ 1')
-  if(wheelSensitivity > 1 | wheelSensitivity < 0) stop('wheelSensitivity must be in 0 ~ 1')
-
-  if(!is.logical(headless)) stop('headless must be logical')
-  if(!is.logical(styleEnabled)) stop('styleEnabled must be logical')
-  if(!is.logical(hideEdgesOnViewport)) stop('hideEdgesOnViewport must be logical')
-  if(!is.logical(textureOnViewport)) stop('textureOnViewport must be logical')
-  if(!is.logical(motionBlur)) stop('motionBlur must be logical')
+  if (!is.logical(headless)) stop("headless must be logical")
+  if (!is.logical(styleEnabled)) stop("styleEnabled must be logical")
+  if (!is.logical(hideEdgesOnViewport)) stop("hideEdgesOnViewport must be logical")
+  if (!is.logical(textureOnViewport)) stop("textureOnViewport must be logical")
+  if (!is.logical(motionBlur)) stop("motionBlur must be logical")
 
   return(
     list(
@@ -54,4 +52,3 @@ buildROptions <- function(
     )
   )
 }
-

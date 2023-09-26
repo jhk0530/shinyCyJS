@@ -18,16 +18,13 @@ library(shinyCyJS)
 ```
 
 ```{r}
-
-  shinyCyJS(
-    list(
-      buildNode("A"), 
-      buildNode("B"), 
-      buildNode("C"), 
-      buildEdge("A", "B", curveStyle = "taxi"), 
-      buildEdge("A", "C", curveStyle = "taxi")
-    )
+shinyCyJS(
+  list(
+    buildNode("A"),
+    buildNode("B"),
+    buildNode("C"),
+    buildEdge("A", "B", curveStyle = "taxi"),
+    buildEdge("A", "C", curveStyle = "taxi")
   )
-
-
+)
 ```

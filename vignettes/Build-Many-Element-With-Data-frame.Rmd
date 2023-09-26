@@ -20,35 +20,35 @@ knitr::opts_chunk$set(
 library(shinyCyJS)
 ```
 
-These 2 code will return same results. (nevermind layout, it contains randomness)
+These 2 code will return same results. (never mind layout, it contains randomness)
 
 ```{r}
-  shinyCyJS(list(
-    buildNode('a'),
-    buildNode('b', width = 20),
-    buildNode('c', width = 30),
-    buildNode('d', width = 40),
-    buildEdge('a','b'),
-    buildEdge('a','c'),
-    buildEdge('c','d'),
-    buildEdge('b','d')
-    ))
+shinyCyJS(list(
+  buildNode("a"),
+  buildNode("b", width = 20),
+  buildNode("c", width = 30),
+  buildNode("d", width = 40),
+  buildEdge("a", "b"),
+  buildEdge("a", "c"),
+  buildEdge("c", "d"),
+  buildEdge("b", "d")
+))
 ```
 
 
 ```{r}
-  a = data.frame(
-    id = c('a','b','c','d'),
-    width = c(15,20,30,40)
-  )
+a <- data.frame(
+  id = c("a", "b", "c", "d"),
+  width = c(15, 20, 30, 40)
+)
 
-  b = data.frame(
-    source = c('a','a','c','b'),
-    target = c('b','c','d','d')
-  )
+b <- data.frame(
+  source = c("a", "a", "c", "b"),
+  target = c("b", "c", "d", "d")
+)
 
-  nodes = buildElems(a,'Node')
-  edges = buildElems(b,'Edge')
+nodes <- buildElems(a, "Node")
+edges <- buildElems(b, "Edge")
 
-  shinyCyJS(c(nodes, edges))
+shinyCyJS(c(nodes, edges))
 ```
