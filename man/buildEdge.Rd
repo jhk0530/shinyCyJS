@@ -10,13 +10,15 @@ buildEdge(
   width = 3,
   curveStyle = "haystack",
   label = "",
+  fontSize = 16,
   lineColor = "#FECA57",
   lineStyle = "solid",
   sourceArrowColor = "#feca57",
   targetArrowColor = "#feca57",
   sourceArrowShape = "none",
   targetArrowShape = "none",
-  opacity = 1
+  opacity = 1,
+  tooltip = ""
 )
 }
 \arguments{
@@ -29,6 +31,8 @@ buildEdge(
 \item{curveStyle}{The curving method used to separate two or more edges between two nodes. [string]}
 
 \item{label}{edge's label [string]}
+
+\item{fontSize}{edge labels font size [numeric]}
 
 \item{lineColor}{The colour of the edge’s line. [string]}
 
@@ -43,6 +47,8 @@ buildEdge(
 \item{targetArrowShape}{The shape of the edge’s target arrow. [string]}
 
 \item{opacity}{Opacity of edge itself. [numeric between 0 ~ 1]}
+
+\item{tooltip}{Text for tooltip. [string]}
 }
 \value{
 List typed Edge element, consisted with data options ( source, target, data ) and style options ( width, curvestyle... )

@@ -10,7 +10,8 @@ shinyCyJS(
   layout = list(name = "cose"),
   width = NULL,
   height = NULL,
-  elementId = NULL
+  elementId = NULL,
+  ...
 )
 }
 \arguments{
@@ -25,6 +26,8 @@ shinyCyJS(
 \item{height}{canvas height.}
 
 \item{elementId}{id used to identify in application.}
+
+\item{...}{other parameters}
 }
 \description{
 generate canvas with given network element and options

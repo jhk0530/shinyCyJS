@@ -26,11 +26,13 @@
 #' @param textBorderColor The colour of the border around the label. [string]
 #' @param textBorderOpacity The width of the border around the label; the border is disabled for 0 (default value) [numeric between 0 ~ 1]
 #' @param textBorderWidth The width of the border around the label. [numeric]
-#' @param parent Indicate whith node is parent of this node [string]
+#' @param parent Indicate which node is parent of this node [string]
 #' @param opacity Opacity of node itself. [numeric between 0 ~ 1]
 #' @param pieSize Implement for pie node, consisted with 16 pie size[string]
 #' @param pieColor Color for each pie part. [string]
 #' @param tooltip Text for tooltip. [string]
+#' @param position.x Location value (specify the location of of Node)
+#' @param position.y Location value (specify the location of of Node)
 #'
 #'
 #' @return List typed Node element, consisted with data options ( id ) and style options ( width, shape... )
@@ -42,23 +44,26 @@
 #'
 
 buildNode <- function(
-  id = NULL, width = 15, height = 15, shape = "ellipse", bgColor = "#48DBFB",
-  bgOpacity = 1, bgFill = "solid", bgBlacken = 0, borderWidth = 0, borderStyle = "solid",
-  borderColor = "#8395a7", borderOpacity = 1, isParent = FALSE, label = NULL, labelColor = "#8395a7",
-  textOpacity = 1, fontSize = 16, textOutlineColor = "#222f3e", textOutlineOpacity = 1,
-  textOutlineWidth = 0, textbgColor = "#FFF", textbgOpacity = 0, textBorderColor = "#222f3e",
-  textBorderOpacity = 0, textBorderWidth = 0, parent = NULL, opacity = 1, pieSize = rep("0%", 16), pieColor = rep("#000", 16), tooltip = "",
-  position.x = 0, position.y = 0) {
+    id = NULL, width = 15, height = 15, shape = "ellipse", bgColor = "#48DBFB",
+    bgOpacity = 1, bgFill = "solid", bgBlacken = 0, borderWidth = 0, borderStyle = "solid",
+    borderColor = "#8395a7", borderOpacity = 1, isParent = FALSE, label = NULL, labelColor = "#8395a7",
+    textOpacity = 1, fontSize = 16, textOutlineColor = "#222f3e", textOutlineOpacity = 1,
+    textOutlineWidth = 0, textbgColor = "#FFF", textbgOpacity = 0, textBorderColor = "#222f3e",
+    textBorderOpacity = 0, textBorderWidth = 0, parent = NULL, opacity = 1, pieSize = rep("0%", 16), pieColor = rep("#000", 16), tooltip = "",
+    position.x = 0, position.y = 0) {
+  if (is.null(id)) stop("id must given")
+  if (!is.character(id)) stop("id must be string")
 
-  if(is.null(id)) stop('id must given')
-  if(!is.character(id)) stop('id must be string')
 
-
-  if(!shape %in% c('ellipse', 'triangle','round-triangle','rectangle'
-                   ,'round-rectangle','bottom-round-rectangle','cut-rectagnel','barrel','rhomboid',
-                   'diamond','round-diamond','pentagon','round-pentagon','concave-hexagon','heptagon','round-heptagon',
-                   'octagon','round-octagon','star','tag','round-tag','vee')) stop('wrong shape, check https://js.cytoscape.org/#style/node-body')
-  if(is.null(label)) label = id
+  if (!shape %in% c(
+    "ellipse", "triangle", "round-triangle", "rectangle",
+    "round-rectangle", "bottom-round-rectangle", "cut-rectagnel", "barrel", "rhomboid",
+    "diamond", "round-diamond", "pentagon", "round-pentagon", "concave-hexagon", "heptagon", "round-heptagon",
+    "octagon", "round-octagon", "star", "tag", "round-tag", "vee"
+  )) {
+    stop("wrong shape, check https://js.cytoscape.org/#style/node-body")
+  }
+  if (is.null(label)) label <- id
 
   l <- list(group = "nodes")
 
@@ -87,6 +92,6 @@ buildNode <- function(
   }
 
   l$data <- options
-  l$position <- list(x=position.x, y=position.y)
+  l$position <- list(x = position.x, y = position.y)
   return(l)
 }

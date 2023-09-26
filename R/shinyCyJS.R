@@ -9,6 +9,7 @@
 #' @param width canvas width.
 #' @param height canvas height.
 #' @param elementId id used to identify in application.
+#' @param ... other parameters
 #'
 #' @export
 shinyCyJS <- function(elements = list(), options = list(), layout = list(name = "cose"),

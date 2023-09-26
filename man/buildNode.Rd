@@ -34,7 +34,9 @@ buildNode(
   opacity = 1,
   pieSize = rep("0\%", 16),
   pieColor = rep("#000", 16),
-  tooltip = ""
+  tooltip = "",
+  position.x = 0,
+  position.y = 0
 )
 }
 \arguments{
@@ -88,7 +90,7 @@ buildNode(
 
 \item{textBorderWidth}{The width of the border around the label. [numeric]}
 
-\item{parent}{Indicate whith node is parent of this node [string]}
+\item{parent}{Indicate which node is parent of this node [string]}
 
 \item{opacity}{Opacity of node itself. [numeric between 0 ~ 1]}
 
@@ -97,6 +99,10 @@ buildNode(
 \item{pieColor}{Color for each pie part. [string]}
 
 \item{tooltip}{Text for tooltip. [string]}
+
+\item{position.x}{Location value (specify the location of of Node)}
+
+\item{position.y}{Location value (specify the location of of Node)}
 }
 \value{
 List typed Node element, consisted with data options ( id ) and style options ( width, shape... )
