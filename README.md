@@ -1,6 +1,9 @@
 # shinyCyJS <img src="https://user-images.githubusercontent.com/6457691/78387821-e7e51a00-761a-11ea-9295-cd52c9e11c6f.png" width="120" align="right"/>
 
-<img src="https://www.r-pkg.org/badges/version/shinyCyJS"/>
+<!-- badges: start -->
+[![CRAN status badge](https://www.r-pkg.org/badges/version/shinyCyJS)]()
+[![shinyCyJS status badge](https://jhk0530.r-universe.dev/badges/shinyCyJS)](https://jhk0530.r-universe.dev/shinyCyJS)
+<!-- badges:: end -->
 
 shinyCyJS is R/Shiny Package to use cytoscape.js in R environment. <br>
 
@@ -10,16 +13,17 @@ shinyCyJS is built with cytoscape.js version 3.12.0. (2019/11)
 
 # How to install :
 
+From CRAN (0.0.11)
 ``` r
-
-# CRAN Ver, 0.0.11
 install.packages('shinyCyJS')
+```
 
-# Development Ver, 0.0.12
-library(devtools)
-devtools::install_github('jhk0530/shinyCyJS')
-library(shinyCyJS)
-
+From r-universe (Dev / 0.0.12) 
+```r
+install.packages(
+  "shinyCyJS",
+  repos = c("https://jhk0530.r-universe.dev", "https://cloud.r-project.org")
+)
 ```
 
 # Example :
