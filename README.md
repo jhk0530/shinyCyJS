@@ -3,7 +3,8 @@
 <!-- badges: start -->
 [![CRAN status badge](https://www.r-pkg.org/badges/version/shinyCyJS)](https://cran.r-project.org/web/packages/shinyCyJS/index.html)
 [![shinyCyJS status badge](https://jhk0530.r-universe.dev/badges/shinyCyJS)](https://jhk0530.r-universe.dev/shinyCyJS)
-<!-- badges:: end -->
+[![Codecov test coverage](https://codecov.io/gh/jhk0530/shinyCyJS/graph/badge.svg)](https://app.codecov.io/gh/jhk0530/shinyCyJS)
+<!-- badges: end -->
 
 shinyCyJS is R/Shiny Package to use cytoscape.js in R environment. <br>
 
@@ -18,7 +19,7 @@ From CRAN (1.0.0)
 install.packages('shinyCyJS')
 ```
 
-From r-universe (1.0.1)
+From r-universe (1.2.0)
 ```r
 install.packages(
   "shinyCyJS",

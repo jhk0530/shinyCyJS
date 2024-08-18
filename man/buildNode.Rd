@@ -36,7 +36,9 @@ buildNode(
   pieColor = rep("#000", 16),
   tooltip = "",
   position.x = 0,
-  position.y = 0
+  position.y = 0,
+  textWrap = "none",
+  textAlign = "auto"
 )
 }
 \arguments{
@@ -103,6 +105,10 @@ buildNode(
 \item{position.x}{Location value (specify the location of of Node)}
 
 \item{position.y}{Location value (specify the location of of Node)}
+
+\item{textWrap}{Wrap text in label. [string]}
+
+\item{textAlign}{Align text in label. [string]}
 }
 \value{
 List typed Node element, consisted with data options ( id ) and style options ( width, shape... )

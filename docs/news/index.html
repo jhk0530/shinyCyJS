@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">shinyCyJS</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -19,6 +19,7 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/Build-Many-Element-With-Data-frame.html">Build Many Element With data.frame</a></li>
+    <li><a class="dropdown-item" href="../articles/export-png.html">Download as PNG image</a></li>
     <li><a class="dropdown-item" href="../articles/label-align.html">Align Label</a></li>
     <li><a class="dropdown-item" href="../articles/multiline-label.html">Multiline Label</a></li>
     <li><a class="dropdown-item" href="../articles/Pie-Chart-Background.html">Pie Chart Background</a></li>
@@ -40,6 +41,30 @@
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.2.0" id="shinycyjs-120">shinyCyJS 1.2.0<a class="anchor" aria-label="anchor" href="#shinycyjs-120"></a></h2>
+<div class="section level3">
+<h3 id="new-feature-1-2-0">New Feature<a class="anchor" aria-label="anchor" href="#new-feature-1-2-0"></a></h3>
+<ul><li>getPNG: now supports <code>getPNG</code> (in shiny application only) to export graph as PNG. see <a href="../articles/export-png.html">Article</a>
+</li>
+</ul></div>
+<div class="section level3">
+<h3 id="dependency-1-2-0">Dependency<a class="anchor" aria-label="anchor" href="#dependency-1-2-0"></a></h3>
+<ul><li>now requires shinyjs.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="dev-1-2-0">Dev<a class="anchor" aria-label="anchor" href="#dev-1-2-0"></a></h3>
+<ul><li>Add badge with code coverage</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.1.0" id="shinycyjs-110">shinyCyJS 1.1.0<a class="anchor" aria-label="anchor" href="#shinycyjs-110"></a></h2>
+<div class="section level3">
+<h3 id="new-feature-1-1-0">New Feature<a class="anchor" aria-label="anchor" href="#new-feature-1-1-0"></a></h3>
+<ul><li>buildNode: now supports <code>textWrap</code> to multiline label, see Multiline label example in Articles</li>
+<li>buildNode: now supports <code>textAlign</code> to align label, see Align label example in Articles</li>
+</ul></div>
+</div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.0.0" id="shinycyjs-100">shinyCyJS 1.0.0<a class="anchor" aria-label="anchor" href="#shinycyjs-100"></a></h2>
 <div class="section level3">
 <h3 id="new-feature-1-0-0">New Feature<a class="anchor" aria-label="anchor" href="#new-feature-1-0-0"></a></h3>
@@ -52,77 +77,13 @@
 </ul><hr></div>
 </div>
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.0.2" id="shinycyjs-002">shinyCyJS 0.0.2<a class="anchor" aria-label="anchor" href="#shinycyjs-002"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.0.12" id="shinycyjs-0012">shinyCyJS 0.0.12<a class="anchor" aria-label="anchor" href="#shinycyjs-0012"></a></h2>
 <div class="section level3">
-<h3 id="new-feature-0-0-2">New Feature<a class="anchor" aria-label="anchor" href="#new-feature-0-0-2"></a></h3>
-<ul><li>Added Pie background. (Supports only <code>Size</code> and <code>Color</code>)</li>
-</ul></div>
-</div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.0.3" id="shinycyjs-003">shinyCyJS 0.0.3<a class="anchor" aria-label="anchor" href="#shinycyjs-003"></a></h2>
-<div class="section level3">
-<h3 id="bug-fix-0-0-3">Bug fix<a class="anchor" aria-label="anchor" href="#bug-fix-0-0-3"></a></h3>
-<ul><li>Pre-built elements didn’t clear when using <code>rendershinyCyJS</code>
-</li>
-</ul></div>
-</div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.0.4" id="shinycyjs-004">shinyCyJS 0.0.4<a class="anchor" aria-label="anchor" href="#shinycyjs-004"></a></h2>
-<div class="section level3">
-<h3 id="new-feature-0-0-4">New Feature<a class="anchor" aria-label="anchor" href="#new-feature-0-0-4"></a></h3>
-<ul><li>Tooltip available on Node elements.</li>
-</ul></div>
-</div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.0.5" id="shinycyjs-005">shinyCyJS 0.0.5<a class="anchor" aria-label="anchor" href="#shinycyjs-005"></a></h2>
-<div class="section level3">
-<h3 id="new-feature-0-0-5">New Feature<a class="anchor" aria-label="anchor" href="#new-feature-0-0-5"></a></h3>
-<ul><li>Selected elements will have different color.</li>
-<li>Node : <img src="https://placehold.it/15/ff00ff/000000?text=+" alt="#ff00ff"></li>
-<li>Edge : <img src="https://placehold.it/15/000000/000000?text=+" alt="#000000"></li>
-</ul></div>
-</div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.0.6" id="shinycyjs-006">shinyCyJS 0.0.6<a class="anchor" aria-label="anchor" href="#shinycyjs-006"></a></h2>
-<div class="section level3">
-<h3 id="new-feature-0-0-6">New Feature<a class="anchor" aria-label="anchor" href="#new-feature-0-0-6"></a></h3>
-<ul><li>New layout added</li>
-<li><a href="https://github.com/iVis-at-Bilkent/cytoscape.js-fcose" class="external-link">fcose</a></li>
-<li><a href="https://github.com/cytoscape/cytoscape.js-spread" class="external-link">spread</a></li>
-<li><a href="https://github.com/cytoscape/cytoscape.js-dagre" class="external-link">dagre</a></li>
-</ul></div>
-</div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.0.7" id="shinycyjs-007">shinyCyJS 0.0.7<a class="anchor" aria-label="anchor" href="#shinycyjs-007"></a></h2>
-<div class="section level3">
-<h3 id="new-feature-0-0-7">New Feature<a class="anchor" aria-label="anchor" href="#new-feature-0-0-7"></a></h3>
-<ul><li>Multiple element can be declared with <code>buildElems</code>
-</li>
-</ul></div>
-</div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.0.8" id="shinycyjs-008">shinyCyJS 0.0.8<a class="anchor" aria-label="anchor" href="#shinycyjs-008"></a></h2>
-<div class="section level3">
-<h3 id="updated-0-0-8">Updated<a class="anchor" aria-label="anchor" href="#updated-0-0-8"></a></h3>
-<ul><li>Core file (<code>cytoscape.js</code>) has updated with recent version. (3.13.0)</li>
-</ul></div>
-<div class="section level3">
-<h3 id="new-feature-0-0-8">New Feature<a class="anchor" aria-label="anchor" href="#new-feature-0-0-8"></a></h3>
-<ul><li>Now available with <code>Taxi</code> edge</li>
-</ul></div>
-</div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.0.9" id="shinycyjs-009">shinyCyJS 0.0.9<a class="anchor" aria-label="anchor" href="#shinycyjs-009"></a></h2>
-<div class="section level3">
-<h3 id="updated-0-0-9">Updated<a class="anchor" aria-label="anchor" href="#updated-0-0-9"></a></h3>
-<ul><li>Manual for each function are added</li>
-</ul></div>
-</div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.0.10" id="shinycyjs-0010">shinyCyJS 0.0.10<a class="anchor" aria-label="anchor" href="#shinycyjs-0010"></a></h2>
-<div class="section level3">
-<h3 id="new-feature-0-0-10">New Feature<a class="anchor" aria-label="anchor" href="#new-feature-0-0-10"></a></h3>
-<ul><li>Now <code>Label</code> for Edge also available.</li>
+<h3 id="package-0-0-12">Package<a class="anchor" aria-label="anchor" href="#package-0-0-12"></a></h3>
+<ul><li>Added a <code>NEWS.md</code> file to track changes to the package.</li>
+<li>Build <a href="https://jhk0530.github.io/shinyCyJS/" class="external-link">package site</a> with <code>pkgdown</code>.</li>
+<li>Vignette added.</li>
+<li>Rebuild hexSticker</li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -139,13 +100,77 @@
 </ul></div>
 </div>
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.0.12" id="shinycyjs-0012">shinyCyJS 0.0.12<a class="anchor" aria-label="anchor" href="#shinycyjs-0012"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.0.10" id="shinycyjs-0010">shinyCyJS 0.0.10<a class="anchor" aria-label="anchor" href="#shinycyjs-0010"></a></h2>
 <div class="section level3">
-<h3 id="package-0-0-12">Package<a class="anchor" aria-label="anchor" href="#package-0-0-12"></a></h3>
-<ul><li>Added a <code>NEWS.md</code> file to track changes to the package.</li>
-<li>Build <a href="https://jhk0530.github.io/shinyCyJS/" class="external-link">package site</a> with <code>pkgdown</code>.</li>
-<li>Vignette added.</li>
-<li>Rebuild hexSticker</li>
+<h3 id="new-feature-0-0-10">New Feature<a class="anchor" aria-label="anchor" href="#new-feature-0-0-10"></a></h3>
+<ul><li>Now <code>Label</code> for Edge also available.</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.0.9" id="shinycyjs-009">shinyCyJS 0.0.9<a class="anchor" aria-label="anchor" href="#shinycyjs-009"></a></h2>
+<div class="section level3">
+<h3 id="updated-0-0-9">Updated<a class="anchor" aria-label="anchor" href="#updated-0-0-9"></a></h3>
+<ul><li>Manual for each function are added</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.0.8" id="shinycyjs-008">shinyCyJS 0.0.8<a class="anchor" aria-label="anchor" href="#shinycyjs-008"></a></h2>
+<div class="section level3">
+<h3 id="updated-0-0-8">Updated<a class="anchor" aria-label="anchor" href="#updated-0-0-8"></a></h3>
+<ul><li>Core file (<code>cytoscape.js</code>) has updated with recent version. (3.13.0)</li>
+</ul></div>
+<div class="section level3">
+<h3 id="new-feature-0-0-8">New Feature<a class="anchor" aria-label="anchor" href="#new-feature-0-0-8"></a></h3>
+<ul><li>Now available with <code>Taxi</code> edge</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.0.7" id="shinycyjs-007">shinyCyJS 0.0.7<a class="anchor" aria-label="anchor" href="#shinycyjs-007"></a></h2>
+<div class="section level3">
+<h3 id="new-feature-0-0-7">New Feature<a class="anchor" aria-label="anchor" href="#new-feature-0-0-7"></a></h3>
+<ul><li>Multiple element can be declared with <code>buildElems</code>
+</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.0.6" id="shinycyjs-006">shinyCyJS 0.0.6<a class="anchor" aria-label="anchor" href="#shinycyjs-006"></a></h2>
+<div class="section level3">
+<h3 id="new-feature-0-0-6">New Feature<a class="anchor" aria-label="anchor" href="#new-feature-0-0-6"></a></h3>
+<ul><li>New layout added</li>
+<li><a href="https://github.com/iVis-at-Bilkent/cytoscape.js-fcose" class="external-link">fcose</a></li>
+<li><a href="https://github.com/cytoscape/cytoscape.js-spread" class="external-link">spread</a></li>
+<li><a href="https://github.com/cytoscape/cytoscape.js-dagre" class="external-link">dagre</a></li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.0.5" id="shinycyjs-005">shinyCyJS 0.0.5<a class="anchor" aria-label="anchor" href="#shinycyjs-005"></a></h2>
+<div class="section level3">
+<h3 id="new-feature-0-0-5">New Feature<a class="anchor" aria-label="anchor" href="#new-feature-0-0-5"></a></h3>
+<ul><li>Selected elements will have different color.</li>
+<li>Node : <img src="https://placehold.it/15/ff00ff/000000?text=+" alt="#ff00ff"></li>
+<li>Edge : <img src="https://placehold.it/15/000000/000000?text=+" alt="#000000"></li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.0.4" id="shinycyjs-004">shinyCyJS 0.0.4<a class="anchor" aria-label="anchor" href="#shinycyjs-004"></a></h2>
+<div class="section level3">
+<h3 id="new-feature-0-0-4">New Feature<a class="anchor" aria-label="anchor" href="#new-feature-0-0-4"></a></h3>
+<ul><li>Tooltip available on Node elements.</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.0.3" id="shinycyjs-003">shinyCyJS 0.0.3<a class="anchor" aria-label="anchor" href="#shinycyjs-003"></a></h2>
+<div class="section level3">
+<h3 id="bug-fix-0-0-3">Bug fix<a class="anchor" aria-label="anchor" href="#bug-fix-0-0-3"></a></h3>
+<ul><li>Pre-built elements didn’t clear when using <code>rendershinyCyJS</code>
+</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.0.2" id="shinycyjs-002">shinyCyJS 0.0.2<a class="anchor" aria-label="anchor" href="#shinycyjs-002"></a></h2>
+<div class="section level3">
+<h3 id="new-feature-0-0-2">New Feature<a class="anchor" aria-label="anchor" href="#new-feature-0-0-2"></a></h3>
+<ul><li>Added Pie background. (Supports only <code>Size</code> and <code>Color</code>)</li>
 </ul></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

@@ -51,9 +51,10 @@ buildNode <- function(
     textOutlineWidth = 0, textbgColor = "#FFF", textbgOpacity = 0, textBorderColor = "#222f3e",
     textBorderOpacity = 0, textBorderWidth = 0, parent = NULL, opacity = 1, pieSize = rep("0%", 16), pieColor = rep("#000", 16), tooltip = "",
     position.x = 0, position.y = 0, textWrap = "none", textAlign = 'auto') {
+
+  ## TESTINGS
   if (is.null(id)) stop("id must given")
   if (!is.character(id)) stop("id must be string")
-
 
   if (!shape %in% c(
     "ellipse", "triangle", "round-triangle", "rectangle",
@@ -66,6 +67,14 @@ buildNode <- function(
   if (is.null(label)) label <- id
 
   l <- list(group = "nodes")
+
+  if(!textWrap %in% c('none', 'wrap', 'ellipsis')){
+    stop("wrong textWrap, possible value is none, wrap, or ellipsis")
+  }
+
+  if(!textAlign %in% c('auto', 'left', 'center', 'right')){
+    stop("wrong textAlign, possible value is auto, left, center, or right")
+  }
 
   options <- list(
     width = width, height = height, label = label, id = id, shape = shape,

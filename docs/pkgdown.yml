@@ -3,12 +3,13 @@ pkgdown: 2.1.0
 pkgdown_sha: ~
 articles:
   Build-Many-Element-With-Data-frame: Build-Many-Element-With-Data-frame.html
+  articles/export-png: export-png.html
   articles/label-align: label-align.html
   articles/multiline-label: multiline-label.html
   Pie-Chart-Background: Pie-Chart-Background.html
   Taxi-Edges: Taxi-Edges.html
   Tooltip-On-Hovering-Node: Tooltip-On-Hovering-Node.html
-last_built: 2024-08-18T08:12Z
+last_built: 2024-08-18T13:01Z
 urls:
   reference: https://github.com/jhk0530/shinyCyJS/reference
   article: https://github.com/jhk0530/shinyCyJS/articles
