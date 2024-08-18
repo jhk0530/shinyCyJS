@@ -1,7 +1,7 @@
-# shinyCyJS <img src="https://user-images.githubusercontent.com/6457691/78387821-e7e51a00-761a-11ea-9295-cd52c9e11c6f.png" width="120" align="right"/>
+# shinyCyJS <img alt = "hexsticker" src="https://user-images.githubusercontent.com/6457691/78387821-e7e51a00-761a-11ea-9295-cd52c9e11c6f.png" width="120" align="right"/>
 
 <!-- badges: start -->
-[![CRAN status badge](https://www.r-pkg.org/badges/version/shinyCyJS)]()
+[![CRAN status badge](https://www.r-pkg.org/badges/version/shinyCyJS)](https://cran.r-project.org/web/packages/shinyCyJS/index.html)
 [![shinyCyJS status badge](https://jhk0530.r-universe.dev/badges/shinyCyJS)](https://jhk0530.r-universe.dev/shinyCyJS)
 <!-- badges:: end -->
 
@@ -11,14 +11,14 @@ cytoscape.js is a great javascript library for visualize/analysis Graph theory (
 
 shinyCyJS is built with cytoscape.js version 3.12.0. (2019/11)
 
-# How to install :
+## How to install :
 
-From CRAN (0.0.11)
+From CRAN (1.0.0)
 ``` r
 install.packages('shinyCyJS')
 ```
 
-From r-universe (Dev / 0.0.12) 
+From r-universe (1.0.1)
 ```r
 install.packages(
   "shinyCyJS",
@@ -26,7 +26,7 @@ install.packages(
 )
 ```
 
-# Example :
+## Example :
 
 bulid Graph with node 4 = A, B, C, D and edge = A-B, B-C, C-D, B-D <br>
 
@@ -38,47 +38,50 @@ bulid Graph with node 4 = A, B, C, D and edge = A-B, B-C, C-D, B-D <br>
 library(shiny)
 library(shinyCyJS)
 
-ui = function(){
+ui <- function() {
   fluidPage(
-    ShinyCyJSOutput(outputId = 'cy')
+    ShinyCyJSOutput(outputId = "cy")
   )
 }
 
-server = function(input, output, session){  
-  
-  nodes = data.frame(
-    id = c('A','B','C','D'),
-    width = c(10,20,30,40),
-    height = c(10,20,30,40)
-  )  
-  
-  edges = data.frame(
-    source = c('A','B','C','D'),
-    target = c('B','C','D','B')
+server <- function(input, output, session) {
+  nodes <- data.frame(
+    id = c("A", "B", "C", "D"),
+    width = c(10, 20, 30, 40),
+    height = c(10, 20, 30, 40)
   )
-  
-  nodes = buildElems(nodes, type = 'Node')
-  edges = buildElems(edges, type = 'Edge')  
-  
-  obj = shinyCyJS(c(nodes, edges))  
-  output$cy = renderShinyCyJS(obj)
+
+  edges <- data.frame(
+    source = c("A", "B", "C", "D"),
+    target = c("B", "C", "D", "B")
+  )
+
+  nodes <- buildElems(nodes, type = "Node")
+  edges <- buildElems(edges, type = "Edge")
+
+  obj <- shinyCyJS(c(nodes, edges))
+  output$cy <- renderShinyCyJS(obj)
 }
 
-shinyApp(ui,server, options = list(launch.browser = TRUE, display.mode ='normal'))
+shinyApp(ui, server)
 ```
 
 </details>
 
-<img src="https://user-images.githubusercontent.com/6457691/68040069-d36dc000-fd10-11e9-9ef5-d021768ac548.gif" width="400"/></img>
+<img alt="graph example" src="https://user-images.githubusercontent.com/6457691/68040069-d36dc000-fd10-11e9-9ef5-d021768ac548.gif" width="400"/></img>
 
-# Versions of Javascripts
-
+## Versions of Javascripts
+ 
 see `inst/htmlwidgets/shinyCyJS.yaml`
 
-# Used in
+## Used in
 
-<a href = 'https://academic.oup.com/bioinformatics/article/36/10/3283/5728635' target = "_blank"> netGO </a> <br> <a href = 'https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-019-5738-6' target = '_blank'> GScluster </a> <br>
+<a href = 'https://github.com/ctlab/gatom'>gatom package</a> <br>
 
-# Suggest or comment
+<a href = 'https://academic.oup.com/bioinformatics/article/36/10/3283/5728635' target = "_blank"> netGO </a>
+
+<a href = 'https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-019-5738-6' target = '_blank'> GScluster </a>
+
+## Suggest or comment
 
 Make issue on [here](https://github.com/jhk0530/shinyCyJS/issues)

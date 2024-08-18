@@ -1,0 +1,35 @@
+---
+title: "Align Label"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(shiny)
+library(shinyCyJS)
+```
+
+This feature added with version `1.1.0`
+
+Use `testAlign` option to align label in node.
+
+Possible option is `left`, `center`, `right` and `auto` (Default).
+
+Default option is `Auto` which is for justified along the node.
+
+Note that, this option manipulate "node", which means if you use `left`, label will go to `right`.
+
+```{r}
+shinyCyJS(
+  list(
+    buildNode('A', label = 'Left', textAlign = 'left', fontSize = 4),
+    buildNode('B', label = 'Right', textAlign = 'right', fontSize = 4),
+    buildNode('C', label = 'Default', fontSize = 4)
+  )
+)
+```

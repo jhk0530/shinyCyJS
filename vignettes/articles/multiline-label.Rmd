@@ -1,0 +1,30 @@
+---
+title: "Multiline Label"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(shiny)
+library(shinyCyJS)
+```
+
+This feature added with version `1.1.0`
+
+Use `testWrap` option and `\n` keyword to use multi-line label in node.
+
+Default option is `none` which is for single-line label.
+
+```{r}
+shinyCyJS(
+  list(
+    buildNode('A', label = 'multiline\nlabel', textWrap = 'wrap', fontSize = 4),
+    buildNode('B', label = 'Not\nmultiline label', textWrap = 'none', fontSize = 4)
+  )
+)
+```

@@ -1,6 +1,6 @@
 Package: shinyCyJS
 Title: Create Interactive Network Visualizations in R and 'shiny'
-Version: 1.0.0
+Version: 1.1.0
 Authors@R: 
   c(
     person("Jinhwan", "Kim", , email = "hwanistic@gmail.com", role = c("aut", "cre", "cph"))
@@ -19,4 +19,6 @@ Imports:
     htmlwidgets
 Suggests: 
     testthat (>= 2.1.0),
-    rmarkdown
+    rmarkdown,
+    knitr
+VignetteBuilder: knitr

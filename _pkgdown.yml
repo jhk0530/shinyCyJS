@@ -1,7 +1,42 @@
+url: https://github.com/jhk0530/shinyCyJS
+template:
+  bootstrap: 5
+  bslib:
+    base_font: {google: "Raleway"}
+    heading_font: {google: "Raleway"}
+
 destination: docs
+
+home:
+  links:
+  - text: Original library (Cytoscape.js)
+    href: https://js.cytoscape.org/
+
 news:
   cran_dates: false
+
 navbar:
   structure:
     left:  [home, intro, reference, articles, tutorials, news]
     right: [github]
+
+# navbar:
+#   title: "shinyCyJS"
+#   left: [articles, news]
+#     # - text: Articles
+#       # href: "articles/"
+#     # - text: News
+#       # href: "news/"
+#     # - text: Reference
+#       # href: "reference/"
+#     # home
+#     # intro
+#     # tutorials
+#   right:
+#     - icon: fa-github
+#       aria-label: GitHub
+#       href: https://github.com/jhk0530/shinyCyJS
+
+authors:
+  Jinhwan Kim:
+    href: https://github.com/jhk0530

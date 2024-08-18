@@ -30,15 +30,15 @@
 #' @param opacity Opacity of node itself. [numeric between 0 ~ 1]
 #' @param pieSize Implement for pie node, consisted with 16 pie size[string]
 #' @param pieColor Color for each pie part. [string]
+#' @param textWrap Wrap text in label. [string]
+#' @param textAlign Align text in label. [string]
 #' @param tooltip Text for tooltip. [string]
 #' @param position.x Location value (specify the location of of Node)
 #' @param position.y Location value (specify the location of of Node)
 #'
-#'
 #' @return List typed Node element, consisted with data options ( id ) and style options ( width, shape... )
 #'
 #' @seealso https://js.cytoscape.org/#style
-#'
 #'
 #' @export
 #'
@@ -50,7 +50,7 @@ buildNode <- function(
     textOpacity = 1, fontSize = 16, textOutlineColor = "#222f3e", textOutlineOpacity = 1,
     textOutlineWidth = 0, textbgColor = "#FFF", textbgOpacity = 0, textBorderColor = "#222f3e",
     textBorderOpacity = 0, textBorderWidth = 0, parent = NULL, opacity = 1, pieSize = rep("0%", 16), pieColor = rep("#000", 16), tooltip = "",
-    position.x = 0, position.y = 0) {
+    position.x = 0, position.y = 0, textWrap = "none", textAlign = 'auto') {
   if (is.null(id)) stop("id must given")
   if (!is.character(id)) stop("id must be string")
 
@@ -83,7 +83,7 @@ buildNode <- function(
     pieColor5 = pieColor[5], pieColor6 = pieColor[6], pieColor7 = pieColor[7], pieColor8 = pieColor[8],
     pieColor9 = pieColor[9], pieColor10 = pieColor[10], pieColor11 = pieColor[11], pieColor12 = pieColor[12],
     pieColor13 = pieColor[13], pieColor14 = pieColor[14], pieColor15 = pieColor[15], pieColor16 = pieColor[16],
-    tooltip = tooltip
+    textWrap = textWrap, tooltip = tooltip, textAlign = textAlign
   )
 
   if (isParent) { # parent node
